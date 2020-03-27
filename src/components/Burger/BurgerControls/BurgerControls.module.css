@@ -1,9 +1,12 @@
 .BurgerControl {
-    width: 50%;
+    width: 80%;
+    min-width: 200px;
     display: flex;
     flex-flow: column;
     align-items: center;
-    box-shadow: 1px 1px 3px 2px #CF8F2E;
+    box-shadow: 1px 1px 3px 2px #29303b;
+    background-color: #29303b;
+    color: white;
     margin: 3% auto;
     padding: 10px;
     border-radius: 5px;

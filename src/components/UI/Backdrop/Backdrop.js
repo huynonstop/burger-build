@@ -4,7 +4,7 @@ const style = {
     width: "100%",
     height: "100%",
     position: "fixed",
-    "z-index": "499",
+    "zIndex": "499",
     left: "0",
     top: "0",
     background: "rgba(0,0,0,0.5)"
