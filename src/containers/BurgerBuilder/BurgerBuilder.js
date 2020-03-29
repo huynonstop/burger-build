@@ -3,6 +3,9 @@ import Burger from "../../components/Burger/Burger";
 import BurgerControls from "../../components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../components/UI/Modal/Modal"
 import OrderSumary from "../../components/Burger/OrderSumary/OrderSumary"
+import axios from '../../axios-order'
+import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler"
 
 const PRICE = {
     salad: 2.4,
@@ -11,17 +14,26 @@ const PRICE = {
     meat: 1
 };
 
-export default class BurgerBuilder extends Component {
+class BurgerBuilder extends Component {
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: 0,
-        isOrdering: false
+        isOrdering: false,
+        loading: false,
+        error: null
     };
+    componentDidMount() {
+        axios.get('/ingredients.json')
+            .then(res => {
+                this.setState({ingredients: res.data})
+            })
+            .catch(err => {
+                this.setState({error : true})
+            })
+    }
+    componentWillUnmount() {
+        
+    }
     addIngredient = type => {
         const newIngredients = {
             ...this.state.ingredients,
@@ -40,28 +52,37 @@ export default class BurgerBuilder extends Component {
         this.setState({ ingredients: newIngredients, totalPrice: newPrice });
     };
     orderHandle = (status) => {
-        this.setState({ isOrdering: status})
+        this.setState({ isOrdering: status })
     }
     orderContinue = () => {
-        alert("Order Complete")
+        //alert("Order Complete")
+        this.setState({ loading: true })
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: "Huy",
+                email: "huy@gmail.com"
+            },
+            time: new Date().toDateString()
+        }
+        axios.post('/orders.json', order)
+            .then(res => console.log(res))
+            .catch(res => console.log(res))
+            .finally(() => this.setState({ isOrdering: false,loading: false }))
     }
     render() {
         const ingredients = this.state.ingredients
-        return (
-            <>
-                <Modal show={this.state.isOrdering} cancel={() => this.orderHandle(false)}>
-                    <OrderSumary 
-                        price={this.state.totalPrice.toFixed(2)}
-                        continue={this.orderContinue}
-                        cancel={() => this.orderHandle(false)}
-                        ingredients={this.state.ingredients} />
-                </Modal>
+        let orderSumary = null
+        let burger = this.state.error ? <p style={{width: "60%",textAlign: "center", margin: "auto"}}>Oops! Somthing went wrong</p> : <Spinner/>
+        if(ingredients) {
+            burger = <>
                 <Burger ingredients={ingredients} />
                 <BurgerControls
                     controls={Object.keys(ingredients).map(
-                        key => ({ 
-                            type: key, 
-                            disabled: (ingredients[key] <= 0) ? true: false
+                        key => ({
+                            type: key,
+                            disabled: (ingredients[key] <= 0) ? true : false
                         }))
                     }
                     addIngredient={this.addIngredient}
@@ -70,6 +91,25 @@ export default class BurgerBuilder extends Component {
                     order={() => this.orderHandle(true)}
                 />
             </>
+            orderSumary = <OrderSumary
+                price={this.state.totalPrice.toFixed(2)}
+                continue={this.orderContinue}
+                cancel={() => this.orderHandle(false)}
+                ingredients={ingredients} />
+        }
+        
+        if(this.state.loading) {
+            orderSumary = <Spinner />
+        }       
+            
+        return (
+            <>
+                <Modal show={this.state.isOrdering} cancel={() => this.orderHandle(false)}>
+                    {orderSumary}
+                </Modal>
+                {burger}
+            </>
         );
     }
 }
+export default withErrorHandler(BurgerBuilder,axios)
