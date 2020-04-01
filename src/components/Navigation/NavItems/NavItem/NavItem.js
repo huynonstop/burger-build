@@ -1,12 +1,13 @@
 import React from 'react'
 import NavItemStyle from './NavItem.module.css'
+import { NavLink } from 'react-router-dom'
 
 const NavItem = (props) => {
     return (
         <li className={NavItemStyle.NavItem} >
-            <a href={props.href} className={props.active ? NavItemStyle.active : ""}>
+            <NavLink to={props.href} exact={props.exact} activeClassName={NavItemStyle.active}>
                 {props.children}
-            </a>
+            </NavLink>
         </li>
     )
 }

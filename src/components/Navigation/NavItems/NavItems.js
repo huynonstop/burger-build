@@ -6,11 +6,11 @@ const NavItems = (props) => {
     return (
         <nav className={props.className}>
             <ul className={NavItemsStyle.NavItems}>
-                <NavItem active href="/">
+                <NavItem  href="/" exact>
                     Builder
             </NavItem>
-                <NavItem href="/">
-                    Checkout
+                <NavItem href="/orders">
+                    Orders
             </NavItem>
             </ul>
         </nav>

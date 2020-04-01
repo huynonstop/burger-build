@@ -13,12 +13,9 @@ const OrderSumary = (props) => {
                 {ingredients}
             </ul>
             <p><strong>Total price: </strong>{props.price}</p>
-            <p style={{ textAlign: "center" }}> 
-                <strong>Move to checkout ?</strong>               
-            </p>
             <div style={{ textAlign: "center" }}>
-                <Button btnType="Danger" onClick={props.cancel}>NO</Button>
-                <Button btnType="Success" onClick={props.continue}>YES</Button>
+                <Button btnType="Danger" onClick={props.cancel}>BACK</Button>
+                <Button btnType="Success" onClick={props.continue}>CHECKOUT</Button>
             </div>
 
         </>

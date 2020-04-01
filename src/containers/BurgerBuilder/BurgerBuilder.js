@@ -31,9 +31,6 @@ class BurgerBuilder extends Component {
                 this.setState({error : true})
             })
     }
-    componentWillUnmount() {
-        
-    }
     addIngredient = type => {
         const newIngredients = {
             ...this.state.ingredients,
@@ -56,20 +53,16 @@ class BurgerBuilder extends Component {
     }
     orderContinue = () => {
         //alert("Order Complete")
-        this.setState({ loading: true })
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: "Huy",
-                email: "huy@gmail.com"
-            },
-            time: new Date().toDateString()
+        const queryParam = []
+        for(let i in this.state.ingredients) {
+            queryParam.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
         }
-        axios.post('/orders.json', order)
-            .then(res => console.log(res))
-            .catch(res => console.log(res))
-            .finally(() => this.setState({ isOrdering: false,loading: false }))
+        queryParam.push(`price=${this.state.totalPrice}`)
+        const queryString = queryParam.join('&')
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?'+queryString
+        })
     }
     render() {
         const ingredients = this.state.ingredients
