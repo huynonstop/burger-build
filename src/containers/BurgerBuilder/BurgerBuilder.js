@@ -7,20 +7,14 @@ import axios from '../../axios-order'
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler"
 
-const PRICE = {
-    salad: 2.4,
-    bacon: 2,
-    cheese: 2.7,
-    meat: 1
-};
-
 class BurgerBuilder extends Component {
     state = {
         ingredients: null,
         totalPrice: 0,
         isOrdering: false,
         loading: false,
-        error: null
+        error: null,
+        PRICE: null
     };
     componentDidMount() {
         axios.get('/ingredients.json')
@@ -30,13 +24,20 @@ class BurgerBuilder extends Component {
             .catch(err => {
                 this.setState({error : true})
             })
+        axios.get('/price.json')
+            .then(res => {
+                this.setState({ PRICE: res.data })
+            })
+            .catch(err => {
+                this.setState({ error: true })
+            })
     }
     addIngredient = type => {
         const newIngredients = {
             ...this.state.ingredients,
             [type]: this.state.ingredients[type] + 1
         };
-        const newPrice = PRICE[type] + this.state.totalPrice;
+        const newPrice = this.state.PRICE[type] + this.state.totalPrice;
         this.setState({ ingredients: newIngredients, totalPrice: newPrice });
     };
     removeIngredient = type => {
@@ -45,7 +46,7 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
             [type]: this.state.ingredients[type] - 1
         };
-        const newPrice = this.state.totalPrice - PRICE[type];
+        const newPrice = this.state.totalPrice - this.state.PRICE[type];
         this.setState({ ingredients: newIngredients, totalPrice: newPrice });
     };
     orderHandle = (status) => {

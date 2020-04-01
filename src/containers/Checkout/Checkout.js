@@ -8,7 +8,7 @@ class Checkout extends Component {
         ingredients: null,
         totalPice: 0
     }
-    componentWillMount() {
+    componentDidMount() {
         const query = new URLSearchParams(this.props.location.search)
         const ingredients = {}
         let price = 0
@@ -28,7 +28,7 @@ class Checkout extends Component {
         return (
             <div>
                 <CheckoutSummary 
-                    ingredients={this.state.ingredients} 
+                    ingredients={this.state.ingredients || []} 
                     checkoutBack={this.checkoutBackHandler}
                     checkoutContinue={this.checkoutContinueHandler}
                 />

@@ -5,7 +5,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import Spinner from "../../components/UI/Spinner/Spinner";
 class Orders extends Component {
     state = {
-        orders: [],
+        orders: null,
         loading: true
     }
     componentDidMount() {
@@ -24,12 +24,12 @@ class Orders extends Component {
     render() {
         return (
             <div>
-                {this.state.loading ? <Spinner/> : this.state.orders.map(order => {
+                {this.state.loading ? <Spinner /> : this.state.orders ? this.state.orders.map(order => {
                     return <Order key={order.id}
                         price={+order.price}
                         ingredients={order.ingredients}
                     />
-                })}
+                }) : null}
             </div>
         );
     }
