@@ -4,26 +4,34 @@ import InputStyle from './Input.module.css';
 
 const input = (props) => {
     let inputElement = null;
-
+    let classInput = [InputStyle.InputElement]
+    let errorMessage = null
+    if (props.invalid && props.shouldValidation && props.touched) {
+        classInput.push(InputStyle.Invalid)
+        errorMessage = <p className={InputStyle.ValidationError}>
+            {props.shouldValidation.errorMessage || ""}
+        </p>;
+    }
+    let classInputText = classInput.join(" ")
     switch (props.elementType) {
         case ('input'):
             inputElement = <input
                 onChange={props.onChange}
-                className={InputStyle.InputElement}
+                className={classInputText}
                 {...props.elementConfig}
                 value={props.value} />;
             break;
         case ('textarea'):
             inputElement = <textarea
                 onChange={props.onChange}
-                className={InputStyle.InputElement}
+                className={classInputText}
                 {...props.elementConfig}
                 value={props.value} />;
             break;
         case ('select'):
             inputElement = <select
                 onChange={props.onChange}
-                className={InputStyle.InputElement}
+                className={classInputText}
                 value={props.value}>
                 {props.elementConfig.options.map(o => (
                     <option value={o.value} key={o.value}>
@@ -35,7 +43,7 @@ const input = (props) => {
         default:
             inputElement = <input
                 onChange={props.onChange}
-                className={InputStyle.InputElement}
+                className={classInputText}
                 {...props.elementConfig}
                 value={props.value} />;
     }
@@ -44,6 +52,7 @@ const input = (props) => {
         <div className={InputStyle.Input}>
             <label className={InputStyle.Label}>{props.label}</label>
             {inputElement}
+            {errorMessage}
         </div>
     );
 

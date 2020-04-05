@@ -16,6 +16,9 @@ class Checkout extends Component {
             if(param[0] === 'price') price = +param[1]
             else ingredients[param[0]] = +param[1]
         }
+        if (Object.keys(ingredients).length === 0) {
+            this.props.history.replace("/")
+        }
         this.setState({ingredients: ingredients,totalPice: price})
     }
     checkoutBackHandler = () => {
