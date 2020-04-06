@@ -1,20 +1,11 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        meat: 0,
-        cheese: 0
-    },
-    totalPrice: 4
-}
-
-const PRICE = {
-    salad: 1,
-    bacon: 2,
-    meat: 3,
-    cheese: 4   
+    ingredients: null,
+    price: null,
+    totalPrice: 4,
+    error: false,
+    loading: false
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -26,7 +17,7 @@ export default (state = initialState, { type, payload }) => {
                     ...state.ingredients,
                     [payload.name]: state.ingredients[payload.name] + 1
                 },
-                totalPrice: state.totalPrice + PRICE[payload.name]
+                totalPrice: state.totalPrice + state.price[payload.name]
             }
         case actionTypes.REMOVE_INGREDIENT:
             return {
@@ -35,11 +26,33 @@ export default (state = initialState, { type, payload }) => {
                     ...state.ingredients,
                     [payload.name]: state.ingredients[payload.name] - 1
                 },
-                totalPrice: state.totalPrice - PRICE[payload.name]
+                totalPrice: state.totalPrice - state.price[payload.name]
             }
-        case actionTypes.RESET_INGREDIENT: 
+        case actionTypes.SET_INGREDIENT: 
+            let totalPrice = 4
+            for (let key in payload.ingredients) {
+                totalPrice = totalPrice + payload.ingredients[key] * state.price[key]
+            }
             return {
-                ...initialState
+                ...state,
+                ingredients: payload.ingredients,
+                totalPrice: totalPrice,
+                error: null
+            }
+        case actionTypes.SET_PRICE: 
+            return {
+                ...state,
+                price: payload.price
+            }
+        case actionTypes.FETCH_INGREDIENT_FAILED:
+            return {
+                ...state,
+                error: true
+            }
+        case actionTypes.SET_LOADING:
+            return {
+                ...state,
+                loading: payload.status
             }
         default:
             return state

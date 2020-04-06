@@ -11,26 +11,11 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler"
 
 class BurgerBuilder extends Component {
     state = {
-        isOrdering: false,
-        loading: false,
-        error: null
+        isOrdering: false
     };
-    // componentDidMount() {
-    //     axios.get('/ingredients.json')
-    //         .then(res => {
-    //             this.setState({ingredients: res.data})
-    //         })
-    //         .catch(err => {
-    //             this.setState({error : true})
-    //         })
-    //     axios.get('/price.json')
-    //         .then(res => {
-    //             this.setState({ PRICE: res.data })
-    //         })
-    //         .catch(err => {
-    //             this.setState({ error: true })
-    //         })
-    // }
+    componentDidMount() {
+        this.props.onInitIngredient()
+    }
     orderHandle = (status) => {
         this.setState({ isOrdering: status })
     }
@@ -38,9 +23,9 @@ class BurgerBuilder extends Component {
         this.props.history.push('/checkout')
     }
     render() {
-        const { ingredients, price } = this.props
+        const { ingredients, price, loading, error } = this.props
         let orderSumary = null
-        let burger = this.state.error ? <p style={{ width: "60%", textAlign: "center", margin: "auto" }}>Oops! Somthing went wrong</p> : <Spinner />
+        let burger = error ? <p style={{ width: "60%", textAlign: "center", margin: "auto" }}>Oops! Somthing went wrong</p> : <Spinner />
         if (ingredients) {
             burger = <>
                 <Burger ingredients={ingredients} />
@@ -64,7 +49,7 @@ class BurgerBuilder extends Component {
                 ingredients={ingredients} />
         }
 
-        if (this.state.loading) {
+        if (loading) {
             orderSumary = <Spinner />
         }
 
@@ -80,12 +65,15 @@ class BurgerBuilder extends Component {
 }
 const mapStateToProps = (state) => ({
     ingredients: state.ingredients,
+    error: state.error,
+    loading: state.loading,
     price: state.totalPrice.toFixed(2)
 })
 
 const mapDispatchToProps = dispatch => ({
     onAddedIngredient: (name) => dispatch(burgerBuilderAction.addIngredient(name)),
-    onRemovedIngredient: (name) => dispatch(burgerBuilderAction.removeIngredient(name))
+    onRemovedIngredient: (name) => dispatch(burgerBuilderAction.removeIngredient(name)),
+    onInitIngredient: () => dispatch(burgerBuilderAction.initState())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios))

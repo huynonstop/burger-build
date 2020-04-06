@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { burgerBuilderAction } from '../../../store/actions/index'
 import Button from '../../../components/UI/Button/Button'
 import axios from '../../../axios-order'
 import ContactDataStyle from './ContactData.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input';
-import { connect } from 'react-redux';
-import * as actionTypes from '../../../store/actions/actionTypes'
 
 const inputSetup = (elementType, elementConfig, validation = {}, value = "") => ({
     elementType: elementType,
@@ -199,6 +200,6 @@ const mapStateToProps = (state) => ({
     price: state.totalPrice.toFixed(2)
 })
 const mapDispatchToProps = dispatch => ({
-    onResetIngredient: () => dispatch({ type: actionTypes.RESET_INGREDIENT})
+    onResetIngredient: () => dispatch(burgerBuilderAction.fetchIngredient())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
