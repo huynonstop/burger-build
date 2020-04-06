@@ -4,6 +4,8 @@ import axios from '../../../axios-order'
 import ContactDataStyle from './ContactData.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions/actionTypes'
 
 const inputSetup = (elementType, elementConfig, validation = {}, value = "") => ({
     elementType: elementType,
@@ -92,6 +94,7 @@ class ContactData extends Component {
     }
     orderHandler = (event) => {
         event.preventDefault()
+        const { ingredients, price } = this.props
         this.setState({ loading: true })
         const formData = {}
         for (let formElement in this.state.orderForm) {
@@ -99,15 +102,18 @@ class ContactData extends Component {
         }
         formData.time = new Date().toDateString()
         const order = {
-            ingredients: this.props.ingredients,
-            price: this.props.price,
+            ingredients: ingredients,
+            price: price,
             orderData: formData
         }
         axios.post('/orders.json', order)
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                this.props.onResetIngredient()
+            })
             .catch(res => console.log(res))
             .finally(() => {
-                this.setState({ loading: false });
+                this.setState({ loading: false })
                 this.props.history.push('/')
             })
     }
@@ -188,5 +194,11 @@ class ContactData extends Component {
         );
     }
 }
-
-export default ContactData;
+const mapStateToProps = (state) => ({
+    ingredients: state.ingredients,
+    price: state.totalPrice.toFixed(2)
+})
+const mapDispatchToProps = dispatch => ({
+    onResetIngredient: () => dispatch({ type: actionTypes.RESET_INGREDIENT})
+})
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);

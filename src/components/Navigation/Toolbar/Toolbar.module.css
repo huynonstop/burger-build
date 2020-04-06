@@ -12,11 +12,21 @@
     box-sizing: border-box;
     z-index: 100;
     color: aliceblue;
+    transition: all 0.5s ease-in-out;
 }
 .Toolbar nav {
     height: 100%;
 }
-
+/* .Toolbar.Fixed nav {
+    height: 90%;
+}
+.Fixed {
+    position: fixed;
+    height: 6vh;
+    top: 0;
+    left: 0;
+    background-color: #29303bbd;
+} */
 @media (max-width: 499px) {
     .DesktopOnly {
         display: none;

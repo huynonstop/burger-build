@@ -13,7 +13,7 @@
     box-sizing: border-box;
     padding: 16px 12px;
     border-bottom: 4px solid transparent;
-    display: block
+    display: block;
 }
 
 .NavItem a:hover,
