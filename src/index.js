@@ -8,10 +8,10 @@ import thunk from 'redux-thunk'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducer/burgerBuilder'
+import rootReducer from './store/reducer/index'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(
+const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk)
   ));
 const app = (

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { burgerBuilderAction } from '../../store/actions/index'
+import { burgerBuilderAction,orderAction } from '../../store/actions/index'
 import Burger from "../../components/Burger/Burger";
 import BurgerControls from "../../components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../components/UI/Modal/Modal"
@@ -20,6 +20,7 @@ class BurgerBuilder extends Component {
         this.setState({ isOrdering: status })
     }
     orderContinue = () => {
+        this.props.onInitPurchase()
         this.props.history.push('/checkout')
     }
     render() {
@@ -50,7 +51,7 @@ class BurgerBuilder extends Component {
         }
 
         if (loading) {
-            orderSumary = <Spinner />
+            burger = <Spinner />
         }
 
         return (
@@ -64,16 +65,17 @@ class BurgerBuilder extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    ingredients: state.ingredients,
-    error: state.error,
-    loading: state.loading,
-    price: state.totalPrice.toFixed(2)
+    ingredients: state.burgerBuilder.ingredients,
+    error: state.burgerBuilder.error,
+    loading: state.burgerBuilder.loading,
+    price: state.burgerBuilder.totalPrice.toFixed(2)
 })
 
 const mapDispatchToProps = dispatch => ({
     onAddedIngredient: (name) => dispatch(burgerBuilderAction.addIngredient(name)),
     onRemovedIngredient: (name) => dispatch(burgerBuilderAction.removeIngredient(name)),
-    onInitIngredient: () => dispatch(burgerBuilderAction.initState())
+    onInitIngredient: () => dispatch(burgerBuilderAction.initState()),
+    onInitPurchase: () => dispatch(orderAction.purchaseInit())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios))

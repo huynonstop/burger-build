@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { burgerBuilderAction } from '../../../store/actions/index'
+import { orderAction } from '../../../store/actions/index'
 import Button from '../../../components/UI/Button/Button'
 import axios from '../../../axios-order'
 import ContactDataStyle from './ContactData.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 
 const inputSetup = (elementType, elementConfig, validation = {}, value = "") => ({
     elementType: elementType,
@@ -96,27 +97,17 @@ class ContactData extends Component {
     orderHandler = (event) => {
         event.preventDefault()
         const { ingredients, price } = this.props
-        this.setState({ loading: true })
         const formData = {}
         for (let formElement in this.state.orderForm) {
             formData[formElement] = this.state.orderForm[formElement].value
         }
         formData.time = new Date().toDateString()
-        const order = {
+        const orderData = {
             ingredients: ingredients,
             price: price,
             orderData: formData
         }
-        axios.post('/orders.json', order)
-            .then(res => {
-                console.log(res)
-                this.props.onResetIngredient()
-            })
-            .catch(res => console.log(res))
-            .finally(() => {
-                this.setState({ loading: false })
-                this.props.history.push('/')
-            })
+        this.props.onOderBurger(orderData)
     }
     inputChangeHandler = (event, key) => {
         const updatedForm = {
@@ -184,7 +175,7 @@ class ContactData extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
             </form>
         )
-        if (this.state.loading) {
+        if (this.props.loading) {
             from = <Spinner />
         }
         return (
@@ -196,10 +187,11 @@ class ContactData extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    ingredients: state.ingredients,
-    price: state.totalPrice.toFixed(2)
+    ingredients: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice.toFixed(2),
+    loading: state.order.loading
 })
 const mapDispatchToProps = dispatch => ({
-    onResetIngredient: () => dispatch(burgerBuilderAction.fetchIngredient())
+    onOderBurger: (orderData) => dispatch(orderAction.purchaseBuger(orderData))
 })
-export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData,axios));
