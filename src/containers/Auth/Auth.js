@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 
-import { inputSetup } from '../utility'
+import { inputSetup,checkValidity } from '../../shared/utility'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button'
@@ -44,38 +44,13 @@ class Auth extends Component {
         formIsValid: true,
         isSignUp: true
     }
-    checkValidity = (value, rules) => {
-        let isValid = true
-
-        if (!rules) {
-            return isValid
-        }
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid
-        }
-        if (rules.minLegth) {
-            isValid = value.length >= rules.minLegth && isValid
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-        if (rules.isEmail) {
-            const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            isValid = pattern.test(value) && isValid
-        }
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/
-            isValid = pattern.test(value) && isValid
-        }
-        return isValid
-    }
     inputChangeHandler = (event, key) => {
         const updatedForm = {
             ...this.state.controls,
             [key]: {
                 ...this.state.controls[key],
                 value: event.target.value,
-                valid: this.checkValidity(
+                valid: checkValidity(
                     event.target.value,
                     this.state.controls[key].validation
                 ),

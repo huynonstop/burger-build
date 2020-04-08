@@ -8,8 +8,7 @@ import ContactDataStyle from './ContactData.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
-import { inputSetup } from '../../utility'
-
+import { inputSetup, checkValidity } from '../../../shared/utility'
 
 class ContactData extends Component {
     state = {
@@ -112,7 +111,7 @@ class ContactData extends Component {
             ...updatedForm[key]
         }
         updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(
+        updatedFormElement.valid = checkValidity(
             updatedFormElement.value,
             updatedFormElement.validation
         )
@@ -126,31 +125,6 @@ class ContactData extends Component {
             orderForm: updatedForm,
             formIsValid: formIsValid
         })
-    }
-    checkValidity = (value, rules) => {
-        let isValid = true
-
-        if (!rules) {
-            return isValid
-        }
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid
-        }
-        if (rules.minLegth) {
-            isValid = value.length >= rules.minLegth && isValid
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-        if (rules.isEmail) {
-            const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            isValid = pattern.test(value) && isValid
-        }
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/
-            isValid = pattern.test(value) && isValid
-        }
-        return isValid
     }
     render() {
         const formElementArray = []
