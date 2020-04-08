@@ -8,7 +8,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import Spinner from "../../components/UI/Spinner/Spinner";
 class Orders extends Component {
     componentDidMount() {
-        this.props.onFetchOrder()
+        this.props.onFetchOrder(this.props.token,this.props.userId)
     }
     render() {
         return (
@@ -27,11 +27,13 @@ class Orders extends Component {
 
 const mapStateToProps = (state) => ({
     orders: state.order.orders,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.token,
+    userId: state.auth.userId
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    onFetchOrder: () => dispatch(orderAction.fetchOrders())
+    onFetchOrder: (token, userId) => dispatch(orderAction.fetchOrders(token, userId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(Orders,axios));

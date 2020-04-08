@@ -22,7 +22,7 @@ const BurgerControls = props => {
             <button
                 className={BurgerControlsStyle.OrderButton}
                 disabled={!isPurchasable}
-                onClick={props.order}>Order</button>
+                onClick={props.order}>{props.isAuth ? "ORDER NOW" : "SIGN UP TO ORDER"}</button>
         </div>
     );
 };

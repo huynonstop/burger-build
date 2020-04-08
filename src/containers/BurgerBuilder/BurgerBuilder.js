@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { burgerBuilderAction,orderAction } from '../../store/actions/index'
+import { burgerBuilderAction,orderAction, authAction } from '../../store/actions/index'
 import Burger from "../../components/Burger/Burger";
 import BurgerControls from "../../components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../components/UI/Modal/Modal"
@@ -17,6 +17,10 @@ class BurgerBuilder extends Component {
         this.props.onInitIngredient()
     }
     orderHandle = (status) => {
+        if(status && !this.props.isAuth) {
+            this.props.onSetAuthRedirectPath('/checkout')
+            this.props.history.push("/auth")
+        }
         this.setState({ isOrdering: status })
     }
     orderContinue = () => {
@@ -41,6 +45,7 @@ class BurgerBuilder extends Component {
                     removeIngredient={this.props.onRemovedIngredient}
                     price={price}
                     order={() => this.orderHandle(true)}
+                    isAuth={this.props.isAuth}
                 />
             </>
             orderSumary = <OrderSumary
@@ -68,14 +73,16 @@ const mapStateToProps = (state) => ({
     ingredients: state.burgerBuilder.ingredients,
     error: state.burgerBuilder.error,
     loading: state.burgerBuilder.loading,
-    price: state.burgerBuilder.totalPrice.toFixed(2)
+    price: state.burgerBuilder.totalPrice.toFixed(2),
+    isAuth: state.auth.token !== null
 })
 
 const mapDispatchToProps = dispatch => ({
     onAddedIngredient: (name) => dispatch(burgerBuilderAction.addIngredient(name)),
     onRemovedIngredient: (name) => dispatch(burgerBuilderAction.removeIngredient(name)),
     onInitIngredient: () => dispatch(burgerBuilderAction.initState()),
-    onInitPurchase: () => dispatch(orderAction.purchaseInit())
+    onInitPurchase: () => dispatch(orderAction.purchaseInit()),
+    onSetAuthRedirectPath: (path) => dispatch(authAction.setAuthRedirectPath(path))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios))

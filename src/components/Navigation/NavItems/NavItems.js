@@ -6,12 +6,13 @@ const NavItems = (props) => {
     return (
         <nav className={props.className}>
             <ul className={NavItemsStyle.NavItems}>
-                <NavItem  href="/" exact>
+                <NavItem href="/" exact>
                     Builder
-            </NavItem>
-                <NavItem href="/orders">
-                    Orders
-            </NavItem>
+                </NavItem>
+                {props.isAuth ? <NavItem href="/orders">Orders</NavItem> : null}
+                {!props.isAuth
+                    ? <NavItem href="/auth">Sign Up</NavItem>
+                    : <NavItem href="/logout">Logout</NavItem>}
             </ul>
         </nav>
     )

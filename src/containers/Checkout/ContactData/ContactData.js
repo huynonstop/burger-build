@@ -8,15 +8,8 @@ import ContactDataStyle from './ContactData.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
+import { inputSetup } from '../../utility'
 
-const inputSetup = (elementType, elementConfig, validation = {}, value = "") => ({
-    elementType: elementType,
-    elementConfig: elementConfig,
-    value: value,
-    validation: validation,
-    valid: (Object.keys(validation).length === 0 && validation.constructor === Object) ? true : false,
-    touched: false
-})
 
 class ContactData extends Component {
     state = {
@@ -40,6 +33,7 @@ class ContactData extends Component {
                 },
                 {
                     required: true,
+                    isEmail: true,
                     errorMessage: "Please enter a valid value"
                 }
             ),
@@ -64,6 +58,7 @@ class ContactData extends Component {
                     required: true,
                     minLegth: 5,
                     maxLength: 5,
+                    isNumeric: true,
                     errorMessage: "Please enter a valid value"
                 }
             ),
@@ -91,8 +86,7 @@ class ContactData extends Component {
                 ,"fastest"
             )
         },
-        formIsValid: false,
-        loading: false
+        formIsValid: false
     }
     orderHandler = (event) => {
         event.preventDefault()
@@ -105,9 +99,10 @@ class ContactData extends Component {
         const orderData = {
             ingredients: ingredients,
             price: price,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         }
-        this.props.onOderBurger(orderData)
+        this.props.onOderBurger(orderData,this.props.token)
     }
     inputChangeHandler = (event, key) => {
         const updatedForm = {
@@ -132,20 +127,28 @@ class ContactData extends Component {
             formIsValid: formIsValid
         })
     }
-    checkValidity = (value,rules) => {
+    checkValidity = (value, rules) => {
         let isValid = true
 
         if (!rules) {
             return isValid
         }
-        if(rules.required) {
-            isValid = value.trim()  !== '' && isValid
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid
         }
-        if(rules.minLegth) {
+        if (rules.minLegth) {
             isValid = value.length >= rules.minLegth && isValid
         }
-        if(rules.maxLength) {
+        if (rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid
+        }
+        if (rules.isEmail) {
+            const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            isValid = pattern.test(value) && isValid
+        }
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/
+            isValid = pattern.test(value) && isValid
         }
         return isValid
     }
@@ -157,7 +160,7 @@ class ContactData extends Component {
                 config: this.state.orderForm[key]
             })
         }
-        let from = (
+        let form = (
             <form onSubmit={this.orderHandler}>
                 {formElementArray.map(element => (
                     <Input
@@ -176,12 +179,12 @@ class ContactData extends Component {
             </form>
         )
         if (this.props.loading) {
-            from = <Spinner />
+            form = <Spinner />
         }
         return (
             <div className={ContactDataStyle.ContactData}>
                 <h3>Your contact infomation</h3>
-                {from}
+                {form}
             </div>
         );
     }
@@ -189,9 +192,11 @@ class ContactData extends Component {
 const mapStateToProps = (state) => ({
     ingredients: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice.toFixed(2),
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.token,
+    userId: state.auth.userId
 })
 const mapDispatchToProps = dispatch => ({
-    onOderBurger: (orderData) => dispatch(orderAction.purchaseBuger(orderData))
+    onOderBurger: (orderData,token) => dispatch(orderAction.purchaseBuger(orderData,token))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData,axios));

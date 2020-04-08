@@ -18,10 +18,10 @@ export const purchaseBugerStart = () => ({
     type: actionTypes.PURCHASE_BURGER_START
 })
 
-export const purchaseBuger = (orderData) => {
+export const purchaseBuger = (orderData,token) => {
     return dispatch => {
         dispatch(purchaseBugerStart())
-        axios.post('/orders.json', orderData)
+        axios.post('/orders.json?auth='+token, orderData)
             .then(res => {
                 dispatch(purchaseBugerSuccess(res.data.name, orderData))
             })
@@ -50,10 +50,11 @@ export const fetchOrdersStart = () => ({
     type: actionTypes.FETCH_ORDER_START
 })
 
-export const fetchOrders = () => {
+export const fetchOrders = (token,userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart())
-        axios.get('/orders.json')
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"'
+        axios.get('/orders.json' + queryParams)
             .then(res => {
                 const fetchedOrders = []
                 for(let key in res.data) {

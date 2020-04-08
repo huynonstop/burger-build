@@ -6,16 +6,18 @@ const initialState = {
     price: null,
     totalPrice: 4,
     error: false,
-    loading: false
+    loading: false,
+    building: false
 }
 
 const addIngredient = (state, payload) => ({
     ...state,
     ingredients: {
         ...state.ingredients,
-        [payload.name]: state.ingredients[payload.name] + 1
+        [payload.name]: state.ingredients[payload.name] + 1,
     },
-    totalPrice: state.totalPrice + state.price[payload.name]
+    totalPrice: state.totalPrice + state.price[payload.name],
+    building: true
 })
 
 const removeIngredient = (state, payload) => ({
@@ -24,7 +26,8 @@ const removeIngredient = (state, payload) => ({
         ...state.ingredients,
         [payload.name]: state.ingredients[payload.name] - 1
     },
-    totalPrice: state.totalPrice - state.price[payload.name]
+    totalPrice: state.totalPrice - state.price[payload.name],
+    building: true
 })
 
 const setIngredient = (state, payload) => {
@@ -36,7 +39,8 @@ const setIngredient = (state, payload) => {
         ...state,
         ingredients: payload.ingredients,
         totalPrice: totalPrice,
-        error: false
+        error: false,
+        building: false
     }
 }
 

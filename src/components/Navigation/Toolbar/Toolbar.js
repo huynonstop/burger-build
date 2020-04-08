@@ -34,7 +34,7 @@ class Toolbar extends Component {
             <header className={classes.join(" ")}>
                 <Logo height="80%" />
                 <ToggleSideDrawer clicked={this.props.toggleSideDrawer} />
-                <NavItems className={ToolbarStyle.DesktopOnly} />
+                <NavItems className={ToolbarStyle.DesktopOnly} isAuth={this.props.isAuth}/>
             </header>
         )
     }

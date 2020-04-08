@@ -1,21 +1,51 @@
-import React from 'react';
+import React,{Component} from 'react';
 import Layout from "./hoc/Layout/Layout"
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder"
 import Checkout from './containers/Checkout/Checkout'
 import Orders from './containers/Orders/Orders'
-import {Route,Switch} from 'react-router-dom'
-function App() {
-  return (
-    <div className="App">
-      <Layout>
+import Auth from './containers/Auth/Auth'
+import Logout from './containers/Auth/Logout/Logout'
+import {Route,Switch,Redirect} from 'react-router-dom'
+import {connect} from "react-redux"
+import {authAction} from './store/actions/index'
+class App extends Component {
+  componentDidMount() {
+    this.props.onAutoLogin()
+  }
+  render() {
+    let routes = (
+      <Switch>
+        <Route path='/auth' component={Auth} />
+        <Route path='/' component={BurgerBuilder} exact />
+        <Redirect to="/"/>
+      </Switch>
+    )
+    if(this.props.isAuth) {
+      routes = (
         <Switch>
-          <Route path='/checkout' component={Checkout}/>
+          <Route path='/auth' component={Auth} />
+          <Route path='/checkout' component={Checkout} />
           <Route path='/orders' component={Orders} />
-          <Route path='/' component={BurgerBuilder} exact/>
+          <Route path='/logout' component={Logout} />
+          <Route path='/' component={BurgerBuilder} exact />
+          <Redirect to="/" />
         </Switch>
-      </Layout>
-    </div>
-  );
+      )
+    }
+    return (
+      <div className="App">
+        <Layout>
+          {routes}
+        </Layout>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.token !== null
+})
+const mapDispatchToProps = (dispatch) => ({
+  onAutoLogin: () => dispatch(authAction.authCheck())
+})
+export default connect(mapStateToProps, mapDispatchToProps)(App);
