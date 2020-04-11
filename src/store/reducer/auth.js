@@ -1,7 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 import { updateObj } from '../utility'
 
-
 const initialState = {
     token: null,
     userId: null,

@@ -1,5 +1,4 @@
 import * as actionTypes from "./actionTypes"
-import axios from '../../axios-order'
 
 export const purchaseBugerSuccess = (id, orderData) => ({
     type: actionTypes.PURCHASE_BURGER_SUCCESS,
@@ -9,9 +8,9 @@ export const purchaseBugerSuccess = (id, orderData) => ({
     }
 })
 
-export const purchaseBugerFail = (error) => ({
+export const purchaseBugerFail = (err) => ({
     type: actionTypes.PURCHASE_BURGER_FAILED,
-    payload: {error: error}
+    payload: {error: err}
 }) 
 
 export const purchaseBugerStart = () => ({
@@ -19,15 +18,12 @@ export const purchaseBugerStart = () => ({
 })
 
 export const purchaseBuger = (orderData,token) => {
-    return dispatch => {
-        dispatch(purchaseBugerStart())
-        axios.post('/orders.json?auth='+token, orderData)
-            .then(res => {
-                dispatch(purchaseBugerSuccess(res.data.name, orderData))
-            })
-            .catch(err => {
-                dispatch(purchaseBugerFail(err))
-            })
+    return {
+        type: actionTypes.PURCHASE_BURGER_SAGA,
+        payload: {
+            orderData,
+            token
+        }
     }
 }
 export const purchaseInit = () => ({
@@ -37,13 +33,13 @@ export const purchaseInit = () => ({
 export const fetchOrdersSuccess = (orders) => ({
     type: actionTypes.FETCH_ORDER_SUCCESS,
     payload: {
-        orders: orders
+        orders
     }
 })
 
-export const fetchOrdersFail = (error) => ({
+export const fetchOrdersFail = (err) => ({
     type: actionTypes.FETCH_ORDER_FAILED,
-    payload: { error: error }
+    payload: { error: err }
 }) 
 
 export const fetchOrdersStart = () => ({
@@ -51,22 +47,11 @@ export const fetchOrdersStart = () => ({
 })
 
 export const fetchOrders = (token,userId) => {
-    return dispatch => {
-        dispatch(fetchOrdersStart())
-        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"'
-        axios.get('/orders.json' + queryParams)
-            .then(res => {
-                const fetchedOrders = []
-                for(let key in res.data) {
-                    fetchedOrders.unshift({
-                        ...res.data[key],
-                        id: key
-                    })
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders))
-            })
-            .catch(err => {
-                dispatch(fetchOrdersFail(err))
-            })
+    return {
+        type: actionTypes.FETCH_ORDER_SAGA,
+        payload: {
+            token,
+            userId
+        }
     }
 }
