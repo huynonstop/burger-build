@@ -37,3 +37,24 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
 
 export default withErrorHandler
+
+
+// import React from 'react'
+// import Modal from '../../components/UI/Modal/Modal'
+// import useHttpErrorHandler from "../../hooks/http-error-handle"
+
+// const withErrorHandler = (WrappedComponent, axios) => {
+//     return props => {
+//         const [error, clearError] = useHttpErrorHandler(axios)
+//         return (
+//             <>
+//                 <Modal show={error} cancel={clearError}>
+//                     {error ? error.message : ""}
+//                 </Modal>
+//                 <WrappedComponent {...props} />
+//             </>
+//         )
+//     }
+// }
+
+// export default withErrorHandler
