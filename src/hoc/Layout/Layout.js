@@ -1,37 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux'
 
 import LayoutStyle from "./Layout.module.css"
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar"
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer"
 
+const Layout = props => {
+    const [showSideDrawer,setShowSideDrawer] = useState(false)
 
-class Layout extends Component {
-    state = {
-        showSideDrawer: false
+    const toggleSideDrawer = (status) => {
+        setShowSideDrawer(status || !showSideDrawer)
     }
-    toggleSideDrawer = (status) => {
-        if (status !== undefined) {
-            this.setState({ showSideDrawer: status })
-        } else {
-            this.setState((prevState) => ({ showSideDrawer: !prevState.showSideDrawer }))
-        }
-    }
-    render() {
-        const isAuth = this.props.isAuth
-        return (
-            <>
-                <Toolbar isAuth={isAuth} toggleSideDrawer={this.toggleSideDrawer} />
-                <SideDrawer
-                    isAuth={isAuth}
-                    show={this.state.showSideDrawer} 
-                    close={() => this.toggleSideDrawer(false)} />
-                <main className={LayoutStyle.content}>
-                    {this.props.children}
-                </main>
-            </>
-        );
-    }
+    const isAuth = props.isAuth
+    return (
+        <>
+            <Toolbar isAuth={isAuth} toggleSideDrawer={toggleSideDrawer} />
+            <SideDrawer
+                isAuth={isAuth}
+                show={showSideDrawer}
+                close={() => toggleSideDrawer(false)} />
+            <main className={LayoutStyle.content}>
+                {props.children}
+            </main>
+        </>
+    );
 }
 
 const mapStateToProps = (state) => ({
