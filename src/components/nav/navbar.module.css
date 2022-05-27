@@ -8,16 +8,37 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
-.Navbar nav {
+.HamburgerButton {
+  padding: 0rem;
+  height: calc(80% - 0.125rem);
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.HamburgerButton img {
+  height: 100%;
+}
+
+.NavItems {
   display: flex;
   height: 100%;
   align-items: center;
 }
 
-.NavItem {
+.NavItems.Column {
+  flex-direction: column;
+  height: auto;
+  align-items: flex-start;
+}
+
+.NavItems .NavItem {
   color: #d39952;
   display: flex;
   height: 100%;
+  width: 100%;
+  padding: 0 0.5rem;
   align-items: center;
   margin: 0;
   border-bottom: 0.25rem solid transparent;
@@ -25,12 +46,31 @@
   font-weight: 700;
 }
 
-.NavItem:hover,
-.NavItem:active,
-.NavItem.active {
+.NavItems.Column .NavItem {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+}
+
+.NavItems .NavItem:hover,
+.NavItems .NavItem:active,
+.NavItems .NavItem.active {
+  border-bottom: 0.25rem solid #d39952;
+}
+.NavItems.Column .NavItem:hover,
+.NavItems.Column .NavItem:active,
+.NavItems.Column .NavItem.active {
+  background-color: #37352f14;
   border-bottom: 0.25rem solid #d39952;
 }
 
-.NavItem a {
-  display: block;
+@media (max-width: 499px) {
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 500px) {
+  .Mobile {
+    display: none;
+  }
 }

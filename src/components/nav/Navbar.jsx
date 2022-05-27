@@ -1,21 +1,19 @@
 import Logo from './Logo';
 import classes from './navbar.module.css';
-
-const Navbar = ({}) => {
+import NavItems from './NavItems';
+import HamburgerIcon from '../../assets/hamburger.png';
+const Navbar = ({ openSideDraw }) => {
   return (
     <header className={classes.Navbar}>
       <div className="header-container">
         <Logo />
-        <div>Menu</div>
-        <nav>
-          <a className={classes.NavItem} href="/">
-            <span>Burger</span>
-          </a>
-
-          <a className={classes.NavItem} href="/">
-            <span>Checkout</span>
-          </a>
-        </nav>
+        <button
+          className={`${classes.HamburgerButton} ${classes.Mobile}`}
+          onClick={openSideDraw}
+        >
+          <img src={HamburgerIcon} alt="icon"></img>
+        </button>
+        <NavItems device="Desktop" />
       </div>
     </header>
   );
