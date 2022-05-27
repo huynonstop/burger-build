@@ -5,19 +5,21 @@ import NavItems from './NavItems';
 import classes from './sidedraw.module.css';
 const sideDrawRoot = document.getElementById('side-draw');
 const SideDraw = ({ show, close }) => {
-  const sideDrawClass = `${classes.SideDraw} ${
-    show ? classes.Open : classes.Close
-  }`;
+  const showClass = show ? classes.Open : classes.Close;
+
+  const sideDrawClass = `${classes.SideDraw} ${showClass}`;
+  const closeButtonClass = `${classes.SideDrawCloseButton} ${showClass}`;
   return createPortal(
-    <>
-      <Backdrop show={show} click={close} />
+    <div className="mobile">
+      <Backdrop show={show} />
       <div className={sideDrawClass}>
         <div className={classes.Logo}>
           <Logo />
         </div>
-        <NavItems direction="Column" device="Mobile" />
+        <NavItems direction="Column" />
       </div>
-    </>,
+      <button onClick={close} className={closeButtonClass}></button>
+    </div>,
     sideDrawRoot,
   );
 };

@@ -1,8 +1,8 @@
 import classes from './navbar.module.css';
 
-const NavItems = ({ direction, device }) => {
-  const itemsClass = `${classes.NavItems} ${classes[direction || 'Row']} ${
-    device ? classes[device] : ''
+const NavItems = ({ className, direction }) => {
+  const itemsClass = `${className || ''} ${classes.NavItems} ${
+    classes[direction || 'Row']
   }`;
   return (
     <nav className={itemsClass}>

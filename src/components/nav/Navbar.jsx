@@ -8,12 +8,12 @@ const Navbar = ({ openSideDraw }) => {
       <div className="header-container">
         <Logo />
         <button
-          className={`${classes.HamburgerButton} ${classes.Mobile}`}
+          className={`${classes.HamburgerButton} mobile`}
           onClick={openSideDraw}
         >
           <img src={HamburgerIcon} alt="icon"></img>
         </button>
-        <NavItems device="Desktop" />
+        <NavItems className="desktop" />
       </div>
     </header>
   );

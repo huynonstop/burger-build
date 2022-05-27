@@ -1,4 +1,12 @@
-.App {
+@media (max-width: 499px) {
+  .desktop {
+    display: none !important;
+  }
+}
+@media (min-width: 500px) {
+  .mobile {
+    display: none !important;
+  }
 }
 
 .content-container {
