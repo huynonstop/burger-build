@@ -1,36 +1,42 @@
-import { TYPES } from '../ingredient/Ingredient';
+import { LABEL, TYPES } from '../../../config/naming';
+import Button from '../../common/Button';
 import classes from './control.module.css';
 import IngredientControl from './IngredientControl';
 
-const LABEL = {
-  [TYPES.meat]: 'Meat',
-  [TYPES.cheese]: 'Cheese',
-  [TYPES.salad]: 'Salad',
-  [TYPES.bacon]: 'Bacon',
-};
-
-const ControlsGroup = ({ price, add, remove, ingredients }) => {
+const ControlsGroup = ({
+  showSummaryModal,
+  price,
+  add,
+  remove,
+  ingredients,
+}) => {
   const ingredientsList = Object.keys(ingredients);
   const totalCount = ingredientsList.reduce((pre, type) => {
     return pre + ingredients[type];
   }, 0);
   return (
-    <div className={classes.ControlsGroup}>
+    <div className={classes.ControlsContainer}>
       <p className={classes.Price}>
         <strong>Total price: {price.toFixed(2)}$</strong>
       </p>
-      {ingredientsList.map((type) => (
-        <IngredientControl
-          key={type}
-          count={ingredients[type]}
-          add={() => add(type)}
-          remove={() => remove(type)}
-          label={LABEL[type]}
-        />
-      ))}
-      <button className={classes.Order} disabled={totalCount === 0}>
+      <div className={classes.ControlsGroup}>
+        {ingredientsList.map((type) => (
+          <IngredientControl
+            key={type}
+            count={ingredients[type]}
+            add={() => add(type)}
+            remove={() => remove(type)}
+            label={LABEL[type]}
+          />
+        ))}
+      </div>
+      <Button
+        className={classes.Order}
+        disabled={totalCount === 0}
+        onClick={showSummaryModal}
+      >
         <strong>ORDER NOW</strong>
-      </button>
+      </Button>
     </div>
   );
 };

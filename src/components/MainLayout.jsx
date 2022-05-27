@@ -1,8 +1,11 @@
+import Navbar from './nav/NavBar';
+import { MainContent } from './mainlayout.module.css';
+
 const MainLayout = ({ children }) => {
   return (
     <>
-      <div>Toolbar, Sidedrawer, Backdrop</div>
-      <main>{children}</main>
+      <Navbar />
+      <main className={MainContent}>{children}</main>
     </>
   );
 };

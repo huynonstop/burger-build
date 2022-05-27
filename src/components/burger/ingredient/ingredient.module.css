@@ -1,5 +1,5 @@
 .BreadBottom {
-  height: 13%;
+  height: 15%;
   width: 80%;
   background: linear-gradient(#f08e4a, #e27b36);
   border-radius: 0 0 30px 30px;
@@ -52,7 +52,7 @@
   position: absolute;
   background-color: white;
   left: 180%;
-  top: -50%;
+  top: 50%;
   border-radius: 40%;
   transform: rotate(60deg);
   box-shadow: inset -1px -3px #c9c9c9;
@@ -116,4 +116,17 @@
   background: linear-gradient(#bf3813, #c45e38);
   margin: 0 auto;
   min-height: 12px;
+}
+
+.Topping {
+  animation: add-in 0.3s ease-in;
+}
+
+@keyframes add-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0px);
+  }
 }

@@ -1,6 +1,6 @@
+import { TYPES } from '../../config/naming';
 import classes from './burger.module.css';
-import Ingredient, { TYPES } from './ingredient/Ingredient';
-
+import Ingredient from './ingredient/Ingredient';
 const emptyMessage = <p>Please select your ingredient</p>;
 
 const Burger = ({ ingredients }) => {

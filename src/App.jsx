@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import BurgerContainer from './components/burger/BurgerContainer';
 import MainLayout from './components/MainLayout';

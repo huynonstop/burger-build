@@ -1,38 +1,25 @@
-import {
-  BreadBottom,
-  BreadTop,
-  Seeds1,
-  Seeds2,
-  Meat,
-  Cheese,
-  Salad,
-  Bacon,
-} from './ingredient.module.css';
+import { TYPES } from '../../../config/naming';
+import classes, { Topping } from './ingredient.module.css';
 
-export const TYPES = {
-  bread: {
-    bot: 'bread-bottom',
-    top: 'bread-top',
-  },
-  meat: 'meat',
-  cheese: 'cheese',
-  salad: 'salad',
-  bacon: 'bacon',
-};
+const BreadBottom = () => <div className={classes.BreadBottom} />;
+const BreadTop = () => (
+  <div className={classes.BreadTop}>
+    <div className={classes.Seeds1}></div>
+    <div className={classes.Seeds2}></div>
+  </div>
+);
+const Meat = () => <div className={`${classes.Meat} ${classes.Topping}`} />;
+const Cheese = () => <div className={`${classes.Cheese} ${classes.Topping}`} />;
+const Salad = () => <div className={`${classes.Salad} ${classes.Topping}`} />;
+const Bacon = () => <div className={`${classes.Bacon} ${classes.Topping}`} />;
 
 const Ingredient = ({ type }) => {
-  if (type === TYPES.bread.bot) return <div className={BreadBottom}></div>;
-  if (type === TYPES.bread.top)
-    return (
-      <div className={BreadTop}>
-        <div className={Seeds1}></div>
-        <div className={Seeds2}></div>
-      </div>
-    );
-  if (type === TYPES.meat) return <div className={Meat}></div>;
-  if (type === TYPES.cheese) return <div className={Cheese}></div>;
-  if (type === TYPES.salad) return <div className={Salad}></div>;
-  if (type === TYPES.bacon) return <div className={Bacon}></div>;
+  if (type === TYPES.bread.bot) return <BreadBottom />;
+  if (type === TYPES.bread.top) return <BreadTop />;
+  if (type === TYPES.meat) return <Meat />;
+  if (type === TYPES.cheese) return <Cheese />;
+  if (type === TYPES.salad) return <Salad />;
+  if (type === TYPES.bacon) return <Bacon />;
   return null;
 };
 export default Ingredient;

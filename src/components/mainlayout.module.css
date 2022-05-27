@@ -1,0 +1,6 @@
+.MainContent {
+  position: relative;
+  top: var(--header-height);
+  left: 0;
+  min-height: calc(100vh - var(--header-height));
+}

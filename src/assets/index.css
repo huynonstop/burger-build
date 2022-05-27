@@ -33,3 +33,7 @@ a {
 button {
   outline: none;
 }
+
+:root {
+  --header-height: 3rem;
+}

@@ -1,12 +1,19 @@
-.ControlsGroup {
+.ControlsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 1rem;
   box-shadow: 4px 2px 15px 5px #ccc;
-  width: 80%;
+  width: max(50%, 300px);
   margin-inline: auto;
-  padding-block: 2rem;
+  padding: 2rem;
+  gap: 1rem;
+  align-self: flex-start;
+}
+.ControlsGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -15,6 +22,11 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.25rem;
+}
+
+.Control .Count {
+  padding-inline: 10px;
+  min-width: 40px;
 }
 
 .Control button {
@@ -53,36 +65,4 @@
 
 .Price {
   font-size: 1.25rem;
-}
-
-.Order {
-  align-self: center;
-  background-color: #fff;
-  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
-  border-style: solid;
-  border-width: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 15px 28px 25px -18px;
-  color: #41403e;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Neucha, sans-serif;
-  font-size: 1rem;
-  outline: none;
-  padding: 0.75rem;
-  transition: all 235ms ease-in-out;
-  border-bottom-left-radius: 15px 255px;
-  border-bottom-right-radius: 225px 15px;
-  border-top-left-radius: 255px 15px;
-  border-top-right-radius: 15px 225px;
-}
-
-.Order:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  color: #fff;
-}
-
-.Order:hover {
-  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px -5px;
-  transform: translate3d(0, 2px, 0);
 }

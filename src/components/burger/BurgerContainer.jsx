@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { TYPES } from '../../config/naming';
+import Modal from '../common/Modal';
+import Summary from '../summary/Summary';
 import Burger from './Burger';
 import ControlsGroup from './control/ControlsGroup';
-import { TYPES } from './ingredient/Ingredient';
 
 const initIngredients = {
   [TYPES.meat]: 0,
@@ -20,6 +22,7 @@ const PRICE = {
 const BurgerContainer = () => {
   const [ingredients, setIngredients] = useState(initIngredients);
   const [price, setPrice] = useState(0);
+  const [showSummary, setShowSummary] = useState(false);
 
   const addIngredient = (type) => {
     setIngredients((pre) => {
@@ -42,15 +45,36 @@ const BurgerContainer = () => {
     setPrice((pre) => pre - PRICE[type]);
   };
 
+  const setSummary = (status) => {
+    setShowSummary(status);
+  };
+
+  const confirmSummary = () => {
+    setSummary(false);
+  };
+
+  const cancelSummary = () => {
+    setSummary(false);
+  };
+
   return (
-    <div className="container">
-      <Burger ingredients={ingredients} />
+    <div className="content-container">
+      <Modal show={showSummary} close={() => setSummary(false)}>
+        <Summary
+          price={price}
+          ingredients={ingredients}
+          cancel={cancelSummary}
+          confirm={confirmSummary}
+        />
+      </Modal>
       <ControlsGroup
         ingredients={ingredients}
         add={addIngredient}
         remove={removeIngredient}
         price={price}
+        showSummaryModal={() => setSummary(true)}
       />
+      <Burger ingredients={ingredients} />
     </div>
   );
 };
