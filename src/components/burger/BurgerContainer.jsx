@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { TYPES } from '../../config/naming';
+import { toast } from 'react-toastify';
+import { BASE_URL, TYPES, API_URL } from '../../config/naming';
+import Container from '../common/Container';
 import Modal from '../common/Modal';
 import Summary from '../summary/Summary';
 import Burger from './Burger';
@@ -23,6 +25,11 @@ const BurgerContainer = () => {
   const [ingredients, setIngredients] = useState(initIngredients);
   const [price, setPrice] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
+
+  const resetIngredients = () => {
+    setIngredients(initIngredients);
+    setPrice(0);
+  };
 
   const addIngredient = (type) => {
     setIngredients((pre) => {
@@ -49,8 +56,28 @@ const BurgerContainer = () => {
     setShowSummary(status);
   };
 
-  const confirmSummary = () => {
-    setSummary(false);
+  const confirmSummary = async () => {
+    const order = {
+      ingredients,
+      price,
+      user: {
+        id: 1,
+      },
+    };
+    toast.promise(
+      fetch(`${BASE_URL}/${API_URL.orders}`, {
+        method: 'POST',
+        body: JSON.stringify(order),
+      }).finally(() => {
+        setSummary(false);
+        resetIngredients();
+      }),
+      {
+        pending: 'Sending order data',
+        success: 'Successfully placed the order 👌',
+        error: 'Something went wrong 🤯',
+      },
+    );
   };
 
   const cancelSummary = () => {
@@ -58,7 +85,7 @@ const BurgerContainer = () => {
   };
 
   return (
-    <div className="content-container">
+    <Container>
       <Modal show={showSummary} close={() => setSummary(false)}>
         <Summary
           price={price}
@@ -75,7 +102,7 @@ const BurgerContainer = () => {
         showSummaryModal={() => setSummary(true)}
       />
       <Burger ingredients={ingredients} />
-    </div>
+    </Container>
   );
 };
 export default BurgerContainer;

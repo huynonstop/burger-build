@@ -10,15 +10,12 @@
 
 .HamburgerButton {
   padding: 0rem;
-  height: calc(80% - 0.125rem);
   background-color: transparent;
   outline: none;
   border: none;
   cursor: pointer;
-}
-
-.HamburgerButton img {
-  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .NavItems {

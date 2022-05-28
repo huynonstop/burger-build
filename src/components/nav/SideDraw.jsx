@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import Backdrop from '../common/Backdrop';
+import { MobileContainer } from '../common/Container';
 import Logo from './Logo';
 import NavItems from './NavItems';
 import classes from './sidedraw.module.css';
@@ -10,7 +11,7 @@ const SideDraw = ({ show, close }) => {
   const sideDrawClass = `${classes.SideDraw} ${showClass}`;
   const closeButtonClass = `${classes.SideDrawCloseButton} ${showClass}`;
   return createPortal(
-    <div className="mobile">
+    <MobileContainer>
       <Backdrop show={show} />
       <div className={sideDrawClass}>
         <div className={classes.Logo}>
@@ -19,7 +20,7 @@ const SideDraw = ({ show, close }) => {
         <NavItems direction="Column" />
       </div>
       <button onClick={close} className={closeButtonClass}></button>
-    </div>,
+    </MobileContainer>,
     sideDrawRoot,
   );
 };
