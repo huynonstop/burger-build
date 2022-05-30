@@ -1,13 +1,18 @@
 import { useClasses } from '../../hooks/useClasses';
 import classes from './container.module.css';
-const Container = ({ children, className }) => {
+import Flex from './Flex';
+const Container = ({ children, className, column }) => {
   const classesName = useClasses([className, classes.Container]);
-  return <div className={classesName}>{children}</div>;
+  return (
+    <Flex column={column} className={classesName}>
+      {children}
+    </Flex>
+  );
 };
 
 export const HeaderContainer = ({ children, className }) => {
   const classesName = useClasses([className, classes.HeaderContainer]);
-  return <div className={classesName}>{children}</div>;
+  return <Flex className={classesName}>{children}</Flex>;
 };
 
 export const DesktopContainer = ({ children, className }) => {

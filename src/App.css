@@ -1,34 +1,27 @@
-.flex {
-  display: flex;
-}
-
-.flex-end {
-  justify-content: flex-end;
-}
-
-.gap-1 {
-  gap: 1rem;
-}
-
 .h-full {
   height: 100%;
 }
 
-.flex-full {
-  flex: 1 0 100%;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.justify-center {
-  justify-content: center;
-}
-.items-center {
-  align-items: center;
-}
-
 .font-xxl {
   font-size: 5rem;
+}
+
+.box-shadow-card {
+  box-shadow: 4px 2px 15px 5px #ccc;
+}
+
+.p-3 {
+  padding: 3rem;
+}
+
+.border-radius-1 {
+  border-radius: 1rem;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-50 {
+  width: 50%;
 }

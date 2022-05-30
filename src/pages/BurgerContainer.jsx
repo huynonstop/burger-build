@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { BASE_URL, TYPES, API_URL } from '../config/naming';
+import { TYPES } from '../config/naming';
 
 import Container from '../components/common/Container';
 import Modal from '../components/common/Modal';
 import BurgerSummary from '../components/burger/BurgerSummary';
 import Burger from '../components/burger/Burger';
 import ControlsGroup from '../components/burger/control/ControlsGroup';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 const initIngredients = {
   [TYPES.meat]: 0,
@@ -28,10 +27,6 @@ const BurgerContainer = () => {
   const [price, setPrice] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
   const navigate = useNavigate();
-  const resetIngredients = () => {
-    setIngredients(initIngredients);
-    setPrice(0);
-  };
 
   const addIngredient = (type) => {
     setIngredients((pre) => {
@@ -59,41 +54,13 @@ const BurgerContainer = () => {
   };
 
   const confirmSummary = async () => {
-    const order = {
-      ingredients,
-      price,
-      user: {
-        id: 1,
-      },
-    };
-    const toastId = toast.loading('Sending order data');
-    try {
-      const res = await fetch(`${BASE_URL}/${API_URL.orders}`, {
-        method: 'POST',
-        body: JSON.stringify(order),
-      });
-      console.log(res);
-      if (res.status !== 200) {
-        throw new Error();
-      }
-      toast.update(toastId, {
-        render: 'Successfully placed the order 👌',
-        isLoading: false,
-        type: 'success',
-      });
-      navigate('/check-out');
-    } catch (err) {
-      console.log(err);
-      toast.update(toastId, {
-        render: 'Something went wrong 🤯',
-        isLoading: false,
-        type: 'error',
-      });
-    } finally {
-      setTimeout(() => {
-        toast.dismiss(toastId);
-      }, 1000);
-    }
+    navigate({
+      pathname: '/check-out',
+      search: createSearchParams({
+        ...ingredients,
+        price,
+      }).toString(),
+    });
   };
 
   const cancelSummary = () => {

@@ -1,0 +1,9 @@
+.OrderCard {
+  display: flex;
+  min-width: fit-content;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 4px 2px 15px 5px #ccc;
+}

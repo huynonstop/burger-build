@@ -6,7 +6,7 @@ const emptyMessage = <p>Please select your ingredient</p>;
 const Burger = ({ ingredients }) => {
   const transformedIngredients = Object.keys(ingredients)
     .map((type) =>
-      [...Array(ingredients[type])].map((_, i) => {
+      [...Array(Number(ingredients[type]))].map((_, i) => {
         return <Ingredient key={`${type}-${i}`} type={type} />;
       }),
     )

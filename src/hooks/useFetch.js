@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { BASE_URL } from '../config/naming';
 
-const useFetch = () => {
+const useFetch = (dataMapper) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -10,12 +10,12 @@ const useFetch = () => {
     try {
       const res = await fetch(`${BASE_URL}/${url}`, options);
       const resData = await res.json();
-      setData(resData);
+      setData(dataMapper ? dataMapper(resData) : resData);
     } catch (err) {
       setError(err);
     }
     setLoading(false);
   };
-  return [data, { loading, error, fetchData }];
+  return [data, fetchData, { loading, error }];
 };
 export default useFetch;

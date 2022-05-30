@@ -1,5 +1,6 @@
 import { LABEL } from '../../config/naming';
 import Button from '../common/Button';
+import Flex from '../common/Flex';
 
 const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
   const types = Object.keys(ingredients);
@@ -19,14 +20,14 @@ const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
       <p>
         <strong> Total price: {price}$</strong>
       </p>
-      <div className="flex flex-end gap-1">
+      <Flex className="flex-end gap-1">
         <Button color="danger" onClick={cancel}>
           Cancel
         </Button>
         <Button color="confirm" onClick={confirm}>
           Checkout
         </Button>
-      </div>
+      </Flex>
     </div>
   );
 };

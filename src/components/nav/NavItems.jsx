@@ -1,18 +1,28 @@
+import { NavLink } from 'react-router-dom';
+import { useClasses } from '../../hooks/useClasses';
 import classes from './navbar.module.css';
 
 const NavItems = ({ className, direction }) => {
-  const itemsClass = `${className || ''} ${classes.NavItems} ${
-    classes[direction] || ''
-  }`;
+  const itemsClass = useClasses([
+    className || '',
+    classes.NavItems,
+    classes[direction] || '',
+  ]);
+  const navLinkClass = ({ isActive }) => {
+    return useClasses([
+      classes.NavItem,
+      isActive ? classes.Active : '',
+    ]);
+  };
   return (
     <nav className={itemsClass}>
-      <a className={classes.NavItem} href="/">
+      <NavLink className={navLinkClass} to="/">
         <span>Burger</span>
-      </a>
+      </NavLink>
 
-      <a className={classes.NavItem} href="/">
-        <span>Checkout</span>
-      </a>
+      <NavLink className={navLinkClass} to="/orders">
+        <span>Orders</span>
+      </NavLink>
     </nav>
   );
 };

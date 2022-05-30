@@ -49,13 +49,11 @@
 }
 
 .NavItems .NavItem:hover,
-.NavItems .NavItem:active,
-.NavItems .NavItem.active {
+.NavItems .NavItem.Active {
   border-bottom: 0.25rem solid #d39952;
 }
 .NavItems.Column .NavItem:hover,
-.NavItems.Column .NavItem:active,
-.NavItems.Column .NavItem.active {
+.NavItems.Column .NavItem.Active {
   background-color: #37352f14;
   border-bottom: 0.25rem solid #d39952;
 }
