@@ -2,7 +2,7 @@ import classes from './navbar.module.css';
 
 const NavItems = ({ className, direction }) => {
   const itemsClass = `${className || ''} ${classes.NavItems} ${
-    classes[direction || 'Row']
+    classes[direction] || ''
   }`;
   return (
     <nav className={itemsClass}>

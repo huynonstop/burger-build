@@ -1,7 +1,7 @@
 import { LABEL } from '../../config/naming';
 import Button from '../common/Button';
 
-const Summary = ({ ingredients, cancel, confirm, price }) => {
+const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
   const types = Object.keys(ingredients);
   return (
     <div>
@@ -31,4 +31,4 @@ const Summary = ({ ingredients, cancel, confirm, price }) => {
   );
 };
 
-export default Summary;
+export default BurgerSummary;

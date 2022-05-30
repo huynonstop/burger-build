@@ -40,6 +40,9 @@
   background-color: #fff;
   border-color: transparent;
 }
+.Danger:hover {
+  border-color: #f13c32;
+}
 .Confirm {
   background-color: #fff;
   border-color: #47ba3f;

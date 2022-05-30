@@ -9,3 +9,26 @@
 .gap-1 {
   gap: 1rem;
 }
+
+.h-full {
+  height: 100%;
+}
+
+.flex-full {
+  flex: 1 0 100%;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+
+.font-xxl {
+  font-size: 5rem;
+}

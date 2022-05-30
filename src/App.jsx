@@ -2,15 +2,13 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import './App.css';
-import BurgerContainer from './components/burger/BurgerContainer';
-import MainLayout from './components/MainLayout';
+
+import Routes from './Routes';
 
 function App() {
   return (
     <div className="App">
-      <MainLayout>
-        <BurgerContainer></BurgerContainer>
-      </MainLayout>
+      <Routes />
       <ToastContainer
         position="bottom-left"
         autoClose={1000}

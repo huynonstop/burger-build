@@ -6,9 +6,6 @@
   margin: auto;
   border: 1px solid #ccc;
   padding: 2rem;
-  /* left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
   transform: translateY(-100%);
   transition: all 0.3s ease-in-out;
 }
@@ -21,6 +18,12 @@
 .Show {
   animation: fade-in 0.3s ease-in-out forwards,
     slide-in 0.3s ease-in-out forwards;
+}
+
+@media (min-width: 600px) {
+  .Modal {
+    width: 50%;
+  }
 }
 
 @keyframes slide-in {
@@ -60,11 +63,5 @@
   }
   to {
     opacity: 0;
-  }
-}
-
-@media (min-width: 600px) {
-  .Modal {
-    width: 50%;
   }
 }

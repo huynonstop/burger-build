@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { BASE_URL, TYPES, API_URL } from '../../config/naming';
-import Container from '../common/Container';
-import Modal from '../common/Modal';
-import Summary from '../summary/Summary';
-import Burger from './Burger';
-import ControlsGroup from './control/ControlsGroup';
+import { BASE_URL, TYPES, API_URL } from '../config/naming';
+
+import Container from '../components/common/Container';
+import Modal from '../components/common/Modal';
+import BurgerSummary from '../components/burger/BurgerSummary';
+import Burger from '../components/burger/Burger';
+import ControlsGroup from '../components/burger/control/ControlsGroup';
+import { useNavigate } from 'react-router-dom';
 
 const initIngredients = {
   [TYPES.meat]: 0,
@@ -25,7 +27,7 @@ const BurgerContainer = () => {
   const [ingredients, setIngredients] = useState(initIngredients);
   const [price, setPrice] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
-
+  const navigate = useNavigate();
   const resetIngredients = () => {
     setIngredients(initIngredients);
     setPrice(0);
@@ -64,20 +66,34 @@ const BurgerContainer = () => {
         id: 1,
       },
     };
-    toast.promise(
-      fetch(`${BASE_URL}/${API_URL.orders}`, {
+    const toastId = toast.loading('Sending order data');
+    try {
+      const res = await fetch(`${BASE_URL}/${API_URL.orders}`, {
         method: 'POST',
         body: JSON.stringify(order),
-      }).finally(() => {
-        setSummary(false);
-        resetIngredients();
-      }),
-      {
-        pending: 'Sending order data',
-        success: 'Successfully placed the order 👌',
-        error: 'Something went wrong 🤯',
-      },
-    );
+      });
+      console.log(res);
+      if (res.status !== 200) {
+        throw new Error();
+      }
+      toast.update(toastId, {
+        render: 'Successfully placed the order 👌',
+        isLoading: false,
+        type: 'success',
+      });
+      navigate('/check-out');
+    } catch (err) {
+      console.log(err);
+      toast.update(toastId, {
+        render: 'Something went wrong 🤯',
+        isLoading: false,
+        type: 'error',
+      });
+    } finally {
+      setTimeout(() => {
+        toast.dismiss(toastId);
+      }, 1000);
+    }
   };
 
   const cancelSummary = () => {
@@ -87,7 +103,7 @@ const BurgerContainer = () => {
   return (
     <Container>
       <Modal show={showSummary} close={() => setSummary(false)}>
-        <Summary
+        <BurgerSummary
           price={price}
           ingredients={ingredients}
           cancel={cancelSummary}

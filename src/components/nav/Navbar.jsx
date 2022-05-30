@@ -20,7 +20,7 @@ const Navbar = ({ openSideDraw }) => {
             <img src={HamburgerIcon} width={32} height={32} alt="icon"></img>
           </button>
         </MobileContainer>
-        <DesktopContainer>
+        <DesktopContainer className="h-full">
           <NavItems />
         </DesktopContainer>
       </HeaderContainer>
