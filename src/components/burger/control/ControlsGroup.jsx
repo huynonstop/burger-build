@@ -9,6 +9,7 @@ const ControlsGroup = ({
   add,
   remove,
   ingredients,
+  reset,
 }) => {
   const ingredientsList = Object.keys(ingredients);
   const totalCount = ingredientsList.reduce((pre, type) => {
@@ -30,12 +31,17 @@ const ControlsGroup = ({
           />
         ))}
       </div>
-      <Button
-        className={classes.Order}
-        disabled={totalCount === 0}
-        onClick={showSummaryModal}
-      >
+
+      <Button disabled={totalCount === 0} onClick={showSummaryModal}>
         <strong>ORDER NOW</strong>
+      </Button>
+
+      <Button
+        disabled={totalCount === 0}
+        color="danger"
+        onClick={reset}
+      >
+        <strong>Reset</strong>
       </Button>
     </div>
   );

@@ -40,7 +40,7 @@
   background-color: #fff;
   border-color: transparent;
 }
-.Danger:hover {
+.Danger:hover:not(:disabled) {
   border-color: #f13c32;
 }
 .Confirm {

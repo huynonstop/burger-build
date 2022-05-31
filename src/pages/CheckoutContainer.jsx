@@ -3,20 +3,19 @@ import { BASE_URL, API_URL } from '../config/naming';
 
 import Container from '../components/common/Container';
 import CheckoutSummary from '../components/checkout/CheckoutSummary';
-import {
-  Outlet,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetIngredients } from '../features/actions';
 
 const CheckoutContainer = ({}) => {
-  const [searchParams] = useSearchParams();
-  const { price, ...ingredients } = Object.fromEntries([
-    ...searchParams,
-  ]);
+  const price = useSelector((store) => store.price);
+  const ingredients = useSelector((store) => store.ingredients);
+  const dispatch = useDispatch();
+  const resetIngredient = () => {
+    dispatch(resetIngredients());
+  };
   const navigate = useNavigate();
   const confirmOrder = async (contactData) => {
-    console.log('confirm');
     const order = {
       ingredients,
       price,
@@ -40,6 +39,7 @@ const CheckoutContainer = ({}) => {
         isLoading: false,
         type: 'success',
       });
+      resetIngredient();
       navigate('/');
     } catch (err) {
       console.log(err);

@@ -4,14 +4,17 @@ import Flex from './Flex';
 const Container = ({ children, className, column }) => {
   const classesName = useClasses([className, classes.Container]);
   return (
-    <Flex column={column} className={classesName}>
+    <Flex column={column} className={classesName} tag="section">
       {children}
     </Flex>
   );
 };
 
 export const HeaderContainer = ({ children, className }) => {
-  const classesName = useClasses([className, classes.HeaderContainer]);
+  const classesName = useClasses([
+    className,
+    classes.HeaderContainer,
+  ]);
   return <Flex className={classesName}>{children}</Flex>;
 };
 

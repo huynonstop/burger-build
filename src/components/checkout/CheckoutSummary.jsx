@@ -1,22 +1,18 @@
-import { useNavigate, createSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Burger from '../burger/Burger';
 import Button from '../common/Button';
 import classes from './checkout.module.css';
-const CheckoutSummary = ({ ingredients, price }) => {
+const CheckoutSummary = ({ ingredients }) => {
   const navigate = useNavigate();
   const checkout = () => {
     navigate({
       pathname: 'contact-data',
-      search: createSearchParams({
-        ...ingredients,
-        price,
-      }).toString(),
     });
   };
   return (
     <div className={classes.CheckoutSummary}>
       <h1>Happy burger(ing)!</h1>
-      <Burger ingredients={ingredients} />
+      <Burger ingredients={ingredients} animate={false} />
       <Button
         color="danger"
         click={() => navigate('/', { replace: true })}

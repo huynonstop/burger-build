@@ -7,7 +7,7 @@ import Loader from '../components/nav/Loader';
 
 const OrdersContainer = () => {
   const [orders, fetchOrders, { loading, error }] = useFetch((data) =>
-    Object.entries(data),
+    Object.entries(data).reverse(),
   );
   useEffect(() => {
     fetchOrders(`${API_URL.orders}`);

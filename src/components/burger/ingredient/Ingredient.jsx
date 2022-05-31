@@ -1,5 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { TYPES } from '../../../config/naming';
-import classes, { Topping } from './ingredient.module.css';
+import { useClasses } from '../../../hooks/useClasses';
+import { ingredientsActions } from '../../../features/ingredients';
+import { priceActions } from '../../../features/price';
+import classes from './ingredient.module.css';
 
 const BreadBottom = () => <div className={classes.BreadBottom} />;
 const BreadTop = () => (
@@ -8,18 +12,54 @@ const BreadTop = () => (
     <div className={classes.Seeds2}></div>
   </div>
 );
-const Meat = () => <div className={`${classes.Meat} ${classes.Topping}`} />;
-const Cheese = () => <div className={`${classes.Cheese} ${classes.Topping}`} />;
-const Salad = () => <div className={`${classes.Salad} ${classes.Topping}`} />;
-const Bacon = () => <div className={`${classes.Bacon} ${classes.Topping}`} />;
+const Meat = ({ animate, onClick }) => (
+  <div
+    className={useClasses([
+      classes.Meat,
+      animate ? classes.Topping : '',
+    ])}
+    onClick={onClick}
+  />
+);
+const Cheese = ({ animate, onClick }) => (
+  <div
+    className={useClasses([
+      classes.Cheese,
+      animate ? classes.Topping : '',
+    ])}
+    onClick={onClick}
+  />
+);
+const Salad = ({ animate, onClick }) => (
+  <div
+    className={useClasses([
+      classes.Salad,
+      animate ? classes.Topping : '',
+    ])}
+    onClick={onClick}
+  />
+);
+const Bacon = ({ animate, onClick }) => (
+  <div
+    className={useClasses([
+      classes.Bacon,
+      animate ? classes.Topping : '',
+    ])}
+    onClick={onClick}
+  />
+);
 
-const Ingredient = ({ type }) => {
-  if (type === TYPES.bread.bot) return <BreadBottom />;
-  if (type === TYPES.bread.top) return <BreadTop />;
-  if (type === TYPES.meat) return <Meat />;
-  if (type === TYPES.cheese) return <Cheese />;
-  if (type === TYPES.salad) return <Salad />;
-  if (type === TYPES.bacon) return <Bacon />;
-  return null;
+const INGREDIENTS = {
+  [TYPES.bread.bot]: BreadBottom,
+  [TYPES.bread.top]: BreadTop,
+  [TYPES.meat]: Meat,
+  [TYPES.cheese]: Cheese,
+  [TYPES.salad]: Salad,
+  [TYPES.bacon]: Bacon,
+};
+
+const Ingredient = ({ remove, type, ...otherProps }) => {
+  const Component = INGREDIENTS[type];
+  return <Component onClick={remove} {...otherProps}></Component>;
 };
 export default Ingredient;
