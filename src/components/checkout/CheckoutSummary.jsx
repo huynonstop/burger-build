@@ -19,7 +19,6 @@ const CheckoutSummary = ({ ingredients, price }) => {
   };
   return (
     <div className={classes.CheckoutSummary}>
-      <h1>Happy burger(ing)!</h1>
       <Burger ingredients={ingredients} animate={false} />
       <BurgerInfo ingredients={ingredients} price={price} />
       {!locationState.checkoutContinued && (

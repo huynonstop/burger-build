@@ -19,9 +19,11 @@ const NavItems = ({ className, direction }) => {
       <NavLink className={navLinkClass} to="/">
         <span>Burger</span>
       </NavLink>
-
       <NavLink className={navLinkClass} to="/orders">
         <span>Orders</span>
+      </NavLink>
+      <NavLink className={navLinkClass} to="/auth">
+        <span>Sign In</span>
       </NavLink>
     </nav>
   );

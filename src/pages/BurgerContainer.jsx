@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { TYPES } from '../config/naming';
 
 import Container from '../components/common/Container';
 import Modal from '../components/common/Modal';
@@ -52,7 +51,7 @@ const BurgerContainer = () => {
 
   return (
     <Container>
-      <Modal show={showSummary} close={() => setSummary(false)}>
+      <Modal show={showSummary} onClose={() => setSummary(false)}>
         <BurgerSummary
           price={price}
           ingredients={ingredients}

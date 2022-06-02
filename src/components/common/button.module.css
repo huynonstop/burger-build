@@ -30,11 +30,29 @@
   transform: translate3d(0, 2px, 0);
 }
 
+.PrimaryDark {
+  color: #fff;
+  background-color: #41403e;
+  border-color: #41403e;
+}
+
 .Primary {
   color: #41403e;
   background-color: #fff;
   border-color: #41403e;
 }
+
+.Button.Reversed.Primary {
+  box-shadow: none;
+  transform: none;
+  border-color: transparent;
+}
+.Button.Reversed.Primary:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+  border-color: #41403e;
+}
+
 .Danger {
   color: #f13c32;
   background-color: #fff;

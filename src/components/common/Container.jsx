@@ -10,11 +10,8 @@ const Container = ({ children, className, column }) => {
   );
 };
 
-export const HeaderContainer = ({ children, className }) => {
-  const classesName = useClasses([
-    className,
-    classes.HeaderContainer,
-  ]);
+export const HeaderContent = ({ children, className }) => {
+  const classesName = useClasses([className, classes.HeaderContent]);
   return <Flex className={classesName}>{children}</Flex>;
 };
 

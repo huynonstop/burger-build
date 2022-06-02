@@ -4,22 +4,33 @@ import classes from './input.module.css';
 
 const Input = forwardRef(
   (
-    { children, inline, name, label, tag = 'input', ...otherProps },
+    {
+      id,
+      children,
+      inline,
+      name,
+      label,
+      info,
+      tag = 'input',
+      ...otherProps
+    },
     ref,
   ) => {
     const InputType = tag;
-    const id = useId();
+    const inputId = `${id}:${name}`;
     const groupClass = useClasses([
       inline ? 'items-center' : 'flex-column',
       classes.InputGroup,
     ]);
     return (
       <div className={groupClass}>
-        <label className={classes.Label} htmlFor={id}>
-          {label}
-        </label>
+        {label && (
+          <label className={classes.Label} htmlFor={inputId}>
+            {label}
+          </label>
+        )}
         <InputType
-          id={id}
+          id={inputId}
           ref={ref}
           className={classes.Input}
           name={name}
@@ -27,6 +38,7 @@ const Input = forwardRef(
         >
           {children}
         </InputType>
+        {info && <span className={classes.Info}>{info}</span>}
       </div>
     );
   },

@@ -8,7 +8,7 @@ const ContactInfo = ({
   deliveryMethod,
 }) => {
   return (
-    <Flex column className="w-50 flex-0 gap-1">
+    <Flex column className="flex-0 gap-1">
       <Flex column className="gap-1-2">
         <p className="p-5px">
           <label>Name:</label> <span>{name}</span>

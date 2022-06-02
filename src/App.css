@@ -14,12 +14,40 @@
   font-size: 1.25rem;
 }
 
+.border-default {
+  border: 1px solid #ccc;
+}
+
 .box-shadow-card {
   box-shadow: 4px 2px 15px 5px #ccc;
 }
 
+.p-block-0-important {
+  padding-block: 0 !important;
+}
+
 .p-3 {
   padding: 3rem;
+}
+
+.px-3 {
+  padding-inline: 3rem;
+}
+
+.py-3 {
+  padding-block: 3rem;
+}
+
+.p-2 {
+  padding: 2rem;
+}
+
+.px-2 {
+  padding-inline: 2rem;
+}
+
+.py-2 {
+  padding-block: 2rem;
 }
 
 .border-radius-1 {
@@ -32,6 +60,22 @@
 
 .w-50 {
   width: 50%;
+}
+
+.w-40 {
+  width: 50%;
+}
+
+.max-w-500px {
+  max-width: 500px;
+}
+
+.min-w-400px {
+  min-width: 400px;
+}
+
+.max-w-200px {
+  max-width: 200px;
 }
 
 .h-screen {
@@ -56,4 +100,12 @@
 
 .p-5px {
   padding: 5px;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.pos-absolute {
+  position: absolute;
 }

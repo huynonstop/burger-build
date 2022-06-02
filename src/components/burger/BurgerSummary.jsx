@@ -5,7 +5,7 @@ import Flex from '../common/Flex';
 const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
   const types = Object.keys(ingredients);
   return (
-    <div>
+    <Flex column className="gap-1-2">
       <h3>Confirm your burger</h3>
       <p>Your burger include the following ingredients:</p>
       <ul>
@@ -20,7 +20,7 @@ const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
       <p>
         <strong> Total price: {price}$</strong>
       </p>
-      <Flex className="justify-end gap-1">
+      <Flex className="justify-between gap-1">
         <Button color="danger" onClick={cancel}>
           Cancel
         </Button>
@@ -28,7 +28,7 @@ const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
           Checkout
         </Button>
       </Flex>
-    </div>
+    </Flex>
   );
 };
 

@@ -21,3 +21,10 @@
 .Input:focus {
   border: 1px solid #000;
 }
+
+.Info {
+  font-size: 0.75rem;
+  color: #5f6368;
+  margin-left: 0.5rem;
+  min-height: 1rem;
+}

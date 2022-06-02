@@ -7,7 +7,11 @@ import Icon from './Icon';
 import classes from './qrimage.module.css';
 import clipboardLogo from '../../assets/icons8-copy-to-clipboard-100.png';
 
-const QRImage = ({ className, content }) => {
+const QRImage = ({
+  className,
+  content,
+  tooltipPosition = 'Center',
+}) => {
   const [qr, setQR] = useState('');
   useEffect(() => {
     QRCode.toDataURL(content, {
@@ -17,6 +21,7 @@ const QRImage = ({ className, content }) => {
       setQR(url);
     });
   }, []);
+  const tooltipPositionClass = classes[tooltipPosition];
   const copyToClipboard = async () => {
     if (qr === '') return;
     try {
@@ -35,18 +40,24 @@ const QRImage = ({ className, content }) => {
   return (
     <Flex className={useClasses([classes.QRWarper, className])}>
       {qr ? (
-        [
-          <img className={classes.QRImage} alt="qr-img" src={qr} />,
+        <>
+          <img className={classes.QRImage} alt="qr-img" src={qr} />
           <span
-            className={classes.Tooltip}
-            onClick={(e) => {
-              e.stopPropagation();
-              copyToClipboard();
-            }}
+            className={useClasses([
+              classes.Tooltip,
+              tooltipPositionClass,
+            ])}
           >
-            <Icon className={classes.Clipboard} src={clipboardLogo} />
-          </span>,
-        ]
+            <Icon
+              onClick={(e) => {
+                e.stopPropagation();
+                copyToClipboard();
+              }}
+              className={classes.Clipboard}
+              src={clipboardLogo}
+            />
+          </span>
+        </>
       ) : (
         <div className={classes.Placeholder}></div>
       )}

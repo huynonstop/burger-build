@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { API_URL } from '../config/naming';
+import { API_URL } from '../config/url';
 import Container from '../components/common/Container';
 import OrderCard from '../components/order/OrderCard';
 import useFetch from '../hooks/useFetch';

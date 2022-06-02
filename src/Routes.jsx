@@ -3,11 +3,12 @@ import BurgerContainer from './pages/BurgerContainer';
 import CheckoutContainer from './pages/CheckoutContainer';
 import MainLayout from './components/MainLayout';
 import NotFound from './pages/NotFound';
-import ContactData from './components/checkout/ContactData';
 import OrdersContainer from './pages/OrdersContainer';
 import RequireLocationState from './components/route/RequireLocationState';
 import CanOrderBurger from './components/route/CanOrderBurger';
 import OrderDetailContainer from './pages/OrderDetailContainer';
+import ContactContainer from './pages/ContactContainer';
+import AuthContainer from './pages/AuthContainer';
 
 const AppRoutes = () => {
   return (
@@ -31,7 +32,7 @@ const AppRoutes = () => {
                   return locationState.checkoutContinued;
                 }}
               >
-                <ContactData />
+                <ContactContainer />
               </RequireLocationState>
             }
           />
@@ -41,6 +42,7 @@ const AppRoutes = () => {
           path="orders/:orderId"
           element={<OrderDetailContainer />}
         />
+        <Route path="auth" element={<AuthContainer />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

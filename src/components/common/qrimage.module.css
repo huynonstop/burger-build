@@ -22,18 +22,32 @@
 
 .Tooltip {
   position: absolute;
-  left: 50%;
-  top: 50%;
   opacity: 0;
   background: #ccc;
   border-radius: 0.5rem;
-  transform: translate(-50%, -50%);
   transition: opacity 0.3s ease-in;
   cursor: pointer;
   padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Tooltip.Center {
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+.Tooltip.TopRight {
+  right: 0%;
+  top: 0%;
+  transform: translateX(100%);
 }
 
 .Clipboard {
   width: 2rem;
   height: 2rem;
+  padding: 0.125rem;
+  background: #fff;
 }

@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { BASE_URL, API_URL } from '../config/naming';
+import { BASE_URL, API_URL } from '../config/url';
 
 import Container from '../components/common/Container';
 import CheckoutSummary from '../components/checkout/CheckoutSummary';
@@ -64,9 +64,7 @@ const CheckoutContainer = ({}) => {
       <Container>
         <CheckoutSummary ingredients={ingredients} price={price} />
       </Container>
-      <Container>
-        <Outlet context={{ confirmOrder }} />
-      </Container>
+      <Outlet context={{ confirmOrder }} />
     </>
   );
 };
