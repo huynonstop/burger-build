@@ -2,12 +2,24 @@
   display: flex;
 }
 
-.flex-end {
+.flex-warp {
+  flex-wrap: wrap;
+}
+
+.justify-end {
   justify-content: flex-end;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
 }
 
 .flex-full {
   flex: 1 0 100%;
+}
+
+.flex-0 {
+  flex: 0 0;
 }
 
 .flex-column {
@@ -22,6 +34,14 @@
   align-items: center;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .gap-1 {
   gap: 1rem;
+}
+
+.gap-1-2 {
+  gap: 0.5rem;
 }

@@ -1,9 +1,27 @@
 .OrderCard {
   display: flex;
   min-width: fit-content;
-  flex-direction: column;
   gap: 1rem;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 4px 2px 15px 5px #ccc;
+  flex-wrap: wrap;
+  justify-content: center;
+  transition: all 0.3s ease-in;
+}
+
+.OrderCard .Info {
+  flex: 1 0 70%;
+}
+
+.OrderCard a {
+  text-decoration: underline;
+  color: red;
+  width: fit-content;
+  margin-top: auto;
+}
+
+.OrderCard .QRWarper {
+  flex: 0 0 20%;
+  min-width: 100px;
 }

@@ -2,7 +2,7 @@ import { createLogger } from 'redux-logger';
 import { configureStore } from '@reduxjs/toolkit';
 import { ingredientsReducer } from './features/ingredients';
 import { priceReducer } from './features/price';
-import { localSync } from './features/listeners';
+import { ingredientsLocalSync } from './features/listeners';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +12,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
       createLogger(),
-      localSync.middleware,
+      ingredientsLocalSync.middleware,
     ]),
 });

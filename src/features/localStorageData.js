@@ -1,3 +1,4 @@
-import { getStoreData } from '../utils/localStorage';
+import { getIngredientsStoreData } from '../utils/localStorage';
 
-export const { localPrice, localIngredients } = getStoreData();
+export const { localPrice, localIngredients } =
+  getIngredientsStoreData();

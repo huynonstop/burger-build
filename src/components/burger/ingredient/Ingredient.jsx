@@ -1,8 +1,6 @@
-import { useDispatch } from 'react-redux';
 import { TYPES } from '../../../config/naming';
 import { useClasses } from '../../../hooks/useClasses';
-import { ingredientsActions } from '../../../features/ingredients';
-import { priceActions } from '../../../features/price';
+import { useScrollRef } from '../../../hooks/useScrollRef';
 import classes from './ingredient.module.css';
 
 const BreadBottom = () => <div className={classes.BreadBottom} />;

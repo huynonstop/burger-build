@@ -1,0 +1,39 @@
+.QRWarper {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.QRImage {
+  height: 100%;
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.QRWarper .Placeholder {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+.QRWarper:hover .Tooltip {
+  opacity: 1;
+}
+
+.Tooltip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  background: #ccc;
+  border-radius: 0.5rem;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease-in;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.Clipboard {
+  width: 2rem;
+  height: 2rem;
+}

@@ -1,6 +1,7 @@
 import { useId } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useLocation, useOutletContext } from 'react-router-dom';
 import useFormRef from '../../hooks/useFormRef';
+import { useScrollRef } from '../../hooks/useScrollRef';
 import Button from '../common/Button';
 import Flex from '../common/Flex';
 import Input from '../common/Input';
@@ -30,10 +31,12 @@ const ContactData = ({}) => {
     if (!contactDataValidator(contactData)) return;
     confirmOrder(contactData);
   };
+
   return (
     <Flex
       className="box-shadow-card p-3 border-radius-1 gap-1"
       column
+      ref={useScrollRef}
     >
       <h2>Provide your contact data</h2>
       <Flex

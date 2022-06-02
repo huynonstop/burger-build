@@ -1,6 +1,7 @@
 import { TYPES } from '../config/naming';
+import { debounced } from './performance';
 
-export const defaultStoreData = {
+export const defaultIngredientsStoreData = {
   ingredients: {
     [TYPES.meat]: 0,
     [TYPES.cheese]: 0,
@@ -10,7 +11,7 @@ export const defaultStoreData = {
   price: 0,
 };
 
-export const getStoreData = () => {
+export const getIngredientsStoreData = () => {
   try {
     const localIngredients = {};
     const ingredientsData = JSON.parse(
@@ -33,13 +34,16 @@ export const getStoreData = () => {
     };
   } catch (err) {
     return {
-      ingredients: { ...defaultStoreData.ingredients },
-      price: defaultStoreData.price,
+      ingredients: { ...defaultIngredientsStoreData.ingredients },
+      price: defaultIngredientsStoreData.price,
     };
   }
 };
 
-export const setStoreData = ({ price, ingredients }) => {
-  localStorage.setItem('ingredients', JSON.stringify(ingredients));
-  localStorage.setItem('price', price.toString());
-};
+export const setIngredientsStoreData = debounced(
+  ({ price, ingredients }) => {
+    localStorage.setItem('ingredients', JSON.stringify(ingredients));
+    localStorage.setItem('price', price.toString());
+  },
+  1000,
+);

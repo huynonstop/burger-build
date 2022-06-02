@@ -1,4 +1,4 @@
-import { LABEL, TYPES } from '../../../config/naming';
+import { LABEL } from '../../../config/naming';
 import Button from '../../common/Button';
 import classes from './control.module.css';
 import IngredientControl from './IngredientControl';
@@ -17,9 +17,9 @@ const ControlsGroup = ({
   }, 0);
   return (
     <div className={classes.ControlsContainer}>
-      <p className={classes.Price}>
+      <h3 className="font-5-4">
         <strong>Total price: {price.toFixed(2)}$</strong>
-      </p>
+      </h3>
       <div className={classes.ControlsGroup}>
         {ingredientsList.map((type) => (
           <IngredientControl

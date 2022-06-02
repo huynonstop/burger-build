@@ -20,7 +20,7 @@ const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
       <p>
         <strong> Total price: {price}$</strong>
       </p>
-      <Flex className="flex-end gap-1">
+      <Flex className="justify-end gap-1">
         <Button color="danger" onClick={cancel}>
           Cancel
         </Button>

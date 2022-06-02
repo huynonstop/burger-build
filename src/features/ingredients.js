@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { defaultStoreData } from '../utils/localStorage';
+import { defaultIngredientsStoreData } from '../utils/localStorage';
 import {
   addIngredients,
   removeIngredients,
@@ -17,7 +17,7 @@ const reducers = {
     state[type] -= 1;
   },
   reset() {
-    return { ...defaultStoreData.ingredients };
+    return { ...defaultIngredientsStoreData.ingredients };
   },
 };
 

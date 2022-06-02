@@ -1,9 +1,17 @@
 .h-full {
   height: 100%;
 }
+.h-full-important {
+  max-height: 100% !important;
+  height: 100% !important;
+}
 
 .font-xxl {
   font-size: 5rem;
+}
+
+.font-5-4 {
+  font-size: 1.25rem;
 }
 
 .box-shadow-card {
@@ -24,4 +32,28 @@
 
 .w-50 {
   width: 50%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.notion-scrollbar::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+  height: 10px;
+}
+.notion-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d3d1cb;
+}
+.notion-scrollbar::-webkit-scrollbar-track {
+  background-color: #edece9;
+}
+
+.no-warp {
+  white-space: nowrap;
+}
+
+.p-5px {
+  padding: 5px;
 }

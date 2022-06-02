@@ -4,27 +4,35 @@ import Container from '../components/common/Container';
 import OrderCard from '../components/order/OrderCard';
 import useFetch from '../hooks/useFetch';
 import Loader from '../components/nav/Loader';
+import Flex from '../components/common/Flex';
 
 const OrdersContainer = () => {
-  const [orders, fetchOrders, { loading, error }] = useFetch((data) =>
-    Object.entries(data).reverse(),
-  );
+  const [orders, fetchOrders, { loading, error }] = useFetch([]);
   useEffect(() => {
-    fetchOrders(`${API_URL.orders}`);
+    fetchOrders(`${API_URL.orders}`, {
+      dataMapper: (data) => Object.entries(data).reverse(),
+    });
   }, []);
   return (
     <Container column className="w-50">
       {loading && <Loader />}
-      {orders &&
-        orders.map(([id, { ingredients, price }]) => {
-          return (
-            <OrderCard
-              key={id}
-              ingredients={ingredients}
-              price={price}
-            />
-          );
-        })}
+      {orders.length
+        ? orders.map(([id, { ingredients, price, createdAt }]) => {
+            return (
+              <OrderCard
+                key={id}
+                orderId={id}
+                ingredients={ingredients}
+                createdAt={createdAt}
+                price={price}
+              />
+            );
+          })
+        : !loading && (
+            <Flex tag="p" className="justify-center">
+              <strong>Nothing in your eyes</strong>
+            </Flex>
+          )}
     </Container>
   );
 };

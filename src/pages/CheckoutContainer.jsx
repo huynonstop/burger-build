@@ -23,6 +23,7 @@ const CheckoutContainer = ({}) => {
         id: 1,
       },
       contactData,
+      createdAt: Date.now(),
     };
     const toastId = toast.loading('Sending order data');
     try {
@@ -30,17 +31,21 @@ const CheckoutContainer = ({}) => {
         method: 'POST',
         body: JSON.stringify(order),
       });
-      console.log(res);
       if (res.status !== 200) {
         throw new Error();
       }
+      const { name } = await res.json();
       toast.update(toastId, {
         render: 'Successfully placed the order 👌',
         isLoading: false,
         type: 'success',
       });
+      navigate(`/orders/${name}`, {
+        state: {
+          to: `/orders/${name}`,
+        },
+      });
       resetIngredient();
-      navigate('/');
     } catch (err) {
       console.log(err);
       toast.update(toastId, {

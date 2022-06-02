@@ -1,26 +1,34 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Burger from '../burger/Burger';
+import BurgerInfo from '../burger/info/BurgerInfo';
 import Button from '../common/Button';
 import classes from './checkout.module.css';
-const CheckoutSummary = ({ ingredients }) => {
+const CheckoutSummary = ({ ingredients, price }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const locationState = location.state || {};
   const checkout = () => {
-    navigate({
-      pathname: 'contact-data',
+    navigate('contact-data', {
+      state: {
+        checkoutContinued: true,
+      },
     });
+  };
+  const createBurger = () => {
+    navigate('/', { replace: true });
   };
   return (
     <div className={classes.CheckoutSummary}>
       <h1>Happy burger(ing)!</h1>
       <Burger ingredients={ingredients} animate={false} />
-      <Button
-        color="danger"
-        click={() => navigate('/', { replace: true })}
-      >
+      <BurgerInfo ingredients={ingredients} price={price} />
+      {!locationState.checkoutContinued && (
+        <Button color="confirm" click={checkout}>
+          Continue checkout
+        </Button>
+      )}
+      <Button color="danger" click={createBurger}>
         Create another burger
-      </Button>
-      <Button color="confirm" click={checkout}>
-        Continue checkout
       </Button>
     </div>
   );

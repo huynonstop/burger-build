@@ -1,9 +1,15 @@
 import { TYPES } from '../../config/naming';
+import { useClasses } from '../../hooks/useClasses';
 import classes from './burger.module.css';
 import Ingredient from './ingredient/Ingredient';
 const emptyMessage = <p>Please select your ingredient</p>;
 
-const Burger = ({ ingredients, remove, animate = true }) => {
+const Burger = ({
+  className,
+  ingredients,
+  remove,
+  animate = true,
+}) => {
   const transformedIngredients = Object.keys(ingredients)
     .map((type) =>
       [...Array(Number(ingredients[type]))].map((_, i) => {
@@ -19,7 +25,13 @@ const Burger = ({ ingredients, remove, animate = true }) => {
     )
     .reduce((pre, cur) => [...pre, ...cur], []);
   return (
-    <div className={classes.Burger}>
+    <div
+      className={useClasses([
+        classes.Burger,
+        className,
+        'notion-scrollbar',
+      ])}
+    >
       <Ingredient type={TYPES.bread.top} />
       {transformedIngredients.length === 0
         ? emptyMessage

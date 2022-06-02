@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TYPES } from '../config/naming';
-import { defaultStoreData } from '../utils/localStorage';
+import { defaultIngredientsStoreData } from '../utils/localStorage';
 import {
   addIngredients,
   removeIngredients,
@@ -25,7 +25,7 @@ const reducers = {
     return state - PRICE[type];
   },
   reset() {
-    return defaultStoreData.price;
+    return defaultIngredientsStoreData.price;
   },
 };
 
