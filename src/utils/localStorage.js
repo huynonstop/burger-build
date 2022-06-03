@@ -34,8 +34,10 @@ export const getIngredientsStoreData = () => {
     };
   } catch (err) {
     return {
-      ingredients: { ...defaultIngredientsStoreData.ingredients },
-      price: defaultIngredientsStoreData.price,
+      localIngredients: {
+        ...defaultIngredientsStoreData.ingredients,
+      },
+      localPrice: defaultIngredientsStoreData.price,
     };
   }
 };
@@ -58,6 +60,7 @@ export const getAuthStoreData = () => {
     const { idToken, user } = JSON.parse(
       localStorage.getItem('auth'),
     );
+    console.log({ idToken, user });
     return {
       idToken,
       user,

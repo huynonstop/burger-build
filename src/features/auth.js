@@ -4,11 +4,6 @@ import {
   getAuthStoreData,
 } from '../utils/localStorage';
 
-const initialState = {
-  user: null,
-  idToken: null,
-};
-
 const reducers = {
   setUser: (state, { payload }) => {
     const { user } = payload;
