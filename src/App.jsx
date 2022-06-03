@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import './App.css';
-import { API_URL } from './config/url';
 import { authActions } from './features/auth';
 import { useAuth } from './hooks/useAuth';
 
