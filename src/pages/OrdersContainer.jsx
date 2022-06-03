@@ -5,13 +5,18 @@ import OrderCard from '../components/order/OrderCard';
 import useFetch from '../hooks/useFetch';
 import Loader from '../components/nav/Loader';
 import Flex from '../components/common/Flex';
+import { useAuth } from '../hooks/useAuth';
 
 const OrdersContainer = () => {
+  const { auth } = useAuth();
   const [orders, fetchOrders, { loading, error }] = useFetch([]);
   useEffect(() => {
-    fetchOrders(`${API_URL.orders}`, {
-      dataMapper: (data) => Object.entries(data).reverse(),
-    });
+    fetchOrders(
+      `users/${auth.user.id}/${API_URL.orders}?auth=${auth.idToken}`,
+      {
+        dataMapper: (data) => Object.entries(data).reverse(),
+      },
+    );
   }, []);
   return (
     <Container column className="w-50">

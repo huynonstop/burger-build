@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Burger from '../components/burger/Burger';
 import BurgerInfo from '../components/burger/info/BurgerInfo';
 import Container from '../components/common/Container';
@@ -7,14 +7,20 @@ import QRImage from '../components/common/QRImage';
 import Loader from '../components/nav/Loader';
 import ContactInfo from '../components/order/ContactInfo';
 import { API_URL } from '../config/url';
+import { useAuth } from '../hooks/useAuth';
 import useFetch from '../hooks/useFetch';
 
 const OrderDetailContainer = () => {
   const [order, fetchOrder, { loading }] = useFetch();
   const { orderId } = useParams();
   const navigate = useNavigate();
+  const { auth } = useAuth();
   useEffect(() => {
-    fetchOrder(`${API_URL.orderId(orderId)}`)
+    fetchOrder(
+      `users/${auth.user.id}/${API_URL.orderId(orderId)}/?auth=${
+        auth.idToken
+      }`,
+    )
       .then((fetchedData) => {
         if (!fetchedData) navigate('/orders', { replace: true });
       })
@@ -31,6 +37,11 @@ const OrderDetailContainer = () => {
       )}
       {order && (
         <>
+          <Container>
+            <Link className="red-link" to="/orders">
+              Back to orders
+            </Link>
+          </Container>
           <Container className="justify-evenly flex-warp">
             <ContactInfo {...order.contactData} />
             <BurgerInfo

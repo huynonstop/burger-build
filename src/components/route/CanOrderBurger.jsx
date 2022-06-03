@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { useIsReRender } from '../../hooks/useIsReRender';
 
 const CanOrderBurger = ({ children, to }) => {
   const ingredients = useSelector((state) => state.ingredients);
@@ -9,15 +10,12 @@ const CanOrderBurger = ({ children, to }) => {
     (pre, type) => pre + ingredients[type],
     0,
   );
-  const isSafe = useRef(false);
-  useEffect(() => {
-    isSafe.current = true;
-  }, []);
-
-  if (isSafe.current || (countIngredients && price)) {
-    return children;
+  const getIsReRender = useIsReRender();
+  const isCanOrder = countIngredients && price;
+  if (!getIsReRender() && !isCanOrder) {
+    return <Navigate to={locationState.to || to} replace />;
   }
-  return <Navigate to={locationState.to || to} replace />;
+  return children;
 };
 
 export default CanOrderBurger;

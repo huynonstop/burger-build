@@ -21,7 +21,9 @@ const OrderCard = ({ orderId, ingredients, createdAt, price }) => {
           Price: <strong>{price}$</strong>
         </p>
         <p>Created at: {createdDate.toDateString()}</p>
-        <Link to={orderId}>More details</Link>
+        <Link className="red-link" to={orderId}>
+          More details
+        </Link>
       </Flex>
       <QRImage
         className={classes.QRWarper}

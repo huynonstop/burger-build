@@ -12,6 +12,9 @@ const useFetch = (initData = null, baseUrl = true) => {
       const fetchUrl = baseUrl ? `${BASE_URL}/${url}` : url;
       const res = await fetch(fetchUrl, options);
       const resData = await res.json();
+      if (res.status !== 200) {
+        throw resData;
+      }
       fetchedData = dataMapper ? dataMapper(resData) : resData;
       setData(fetchedData);
     } catch (err) {

@@ -21,7 +21,7 @@ const Navbar = () => {
     <header className={classes.Navbar}>
       <SideDraw show={showSideDraw} close={closeSideDraw} />
       <HeaderContent>
-        <Logo />
+        <Logo label="BuildBurger" />
         <MobileContainer>
           <button
             className={`${classes.HamburgerButton}`}

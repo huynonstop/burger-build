@@ -9,6 +9,8 @@ import CanOrderBurger from './components/route/CanOrderBurger';
 import OrderDetailContainer from './pages/OrderDetailContainer';
 import ContactContainer from './pages/ContactContainer';
 import AuthContainer from './pages/AuthContainer';
+import RequireUnAuth from './components/route/RequireUnAuth';
+import RequireAuth from './components/route/RequireAuth';
 
 const AppRoutes = () => {
   return (
@@ -37,12 +39,30 @@ const AppRoutes = () => {
             }
           />
         </Route>
-        <Route path="orders" element={<OrdersContainer />} />
+        <Route
+          path="orders"
+          element={
+            <RequireAuth>
+              <OrdersContainer />
+            </RequireAuth>
+          }
+        />
         <Route
           path="orders/:orderId"
-          element={<OrderDetailContainer />}
+          element={
+            <RequireAuth>
+              <OrderDetailContainer />
+            </RequireAuth>
+          }
         />
-        <Route path="auth" element={<AuthContainer />} />
+        <Route
+          path="auth"
+          element={
+            <RequireUnAuth>
+              <AuthContainer />
+            </RequireUnAuth>
+          }
+        />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

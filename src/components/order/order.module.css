@@ -14,14 +14,8 @@
   flex: 1 0 70%;
 }
 
-.OrderCard a {
-  text-decoration: underline;
-  color: red;
-  width: fit-content;
-  margin-top: auto;
-}
-
 .OrderCard .QRWarper {
   flex: 0 0 20%;
   min-width: 100px;
+  min-height: 100px;
 }

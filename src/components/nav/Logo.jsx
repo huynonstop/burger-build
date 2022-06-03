@@ -1,20 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import burgerLogo from '../../assets/burger-logo.png';
 import { useClasses } from '../../hooks/useClasses';
+import Flex from '../common/Flex';
 
 import classes from './logo.module.css';
 
-const Logo = ({ mini = false }) => {
+const Logo = ({ className, mini = false, label }) => {
   const navigate = useNavigate();
   const sizeClass = mini ? classes.Mini : '';
 
   return (
-    <div
-      className={useClasses([classes.Logo, sizeClass])}
+    <Flex
+      className={useClasses([
+        classes.Logo,
+        sizeClass,
+        className,
+        'items-center gap-1-2',
+      ])}
       onClick={() => navigate('/')}
     >
       <img src={burgerLogo} alt="logo" />
-    </div>
+      {label && <h3>{label}</h3>}
+    </Flex>
   );
 };
 

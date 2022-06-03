@@ -109,3 +109,10 @@
 .pos-absolute {
   position: absolute;
 }
+
+a.red-link {
+  text-decoration: underline;
+  color: red;
+  width: fit-content;
+  margin-top: auto;
+}

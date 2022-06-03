@@ -47,3 +47,48 @@ export const setIngredientsStoreData = debounced(
   },
   1000,
 );
+
+export const defaultAuthStoreData = {
+  idToken: null,
+  user: null,
+};
+
+export const getAuthStoreData = () => {
+  try {
+    const { idToken, user } = JSON.parse(
+      localStorage.getItem('auth'),
+    );
+    return {
+      idToken,
+      user,
+    };
+  } catch (err) {
+    return {
+      ...defaultAuthStoreData,
+    };
+  }
+};
+
+export const setAuthStoreData = (authData) => {
+  localStorage.setItem('auth', JSON.stringify(authData));
+};
+
+export const clearAuthStoreData = () => {
+  localStorage.removeItem('auth');
+};
+
+export const getExpiresTime = () => {
+  try {
+    return Number.parseInt(localStorage.getItem('expiresTime'));
+  } catch (err) {
+    return null;
+  }
+};
+
+export const setExpiresTime = (expiresTime) => {
+  localStorage.setItem('expiresTime', expiresTime.toString());
+};
+
+export const clearExpiresTime = () => {
+  localStorage.removeItem('expiresTime');
+};

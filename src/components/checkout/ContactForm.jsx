@@ -21,10 +21,9 @@ const ContactForm = ({ id, contactDataHandler }) => {
   const [formRef, { createInputRef, getFormData }] = useFormRef();
   const orderSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
     const contactData = getFormData();
-    // if (!contactDataValidator(contactData)) return;
-    // contactDataHandler(contactData);
+    if (!contactDataValidator(contactData)) return;
+    contactDataHandler(contactData);
   };
 
   return (

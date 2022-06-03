@@ -3,16 +3,24 @@ import Burger from '../burger/Burger';
 import BurgerInfo from '../burger/info/BurgerInfo';
 import Button from '../common/Button';
 import classes from './checkout.module.css';
-const CheckoutSummary = ({ ingredients, price }) => {
+const CheckoutSummary = ({ isAuth, ingredients, price }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const locationState = location.state || {};
-  const checkout = () => {
-    navigate('contact-data', {
-      state: {
-        checkoutContinued: true,
-      },
-    });
+  const continueHandler = () => {
+    if (isAuth) {
+      navigate('contact-data', {
+        state: {
+          checkoutContinued: true,
+        },
+      });
+    } else {
+      navigate('/auth', {
+        state: {
+          redirect: '/check-out',
+        },
+      });
+    }
   };
   const createBurger = () => {
     navigate('/', { replace: true });
@@ -22,8 +30,8 @@ const CheckoutSummary = ({ ingredients, price }) => {
       <Burger ingredients={ingredients} animate={false} />
       <BurgerInfo ingredients={ingredients} price={price} />
       {!locationState.checkoutContinued && (
-        <Button color="confirm" click={checkout}>
-          Continue checkout
+        <Button color="confirm" click={continueHandler}>
+          {isAuth ? 'Continue checkout' : 'Sign in to continue'}
         </Button>
       )}
       <Button color="danger" click={createBurger}>

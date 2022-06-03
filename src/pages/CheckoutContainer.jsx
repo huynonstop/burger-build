@@ -6,9 +6,11 @@ import CheckoutSummary from '../components/checkout/CheckoutSummary';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetIngredients } from '../features/actions';
+import { useAuth } from '../hooks/useAuth';
 
 const CheckoutContainer = ({}) => {
   const price = useSelector((store) => store.price);
+  const { auth } = useAuth();
   const ingredients = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
   const resetIngredient = () => {
@@ -19,18 +21,19 @@ const CheckoutContainer = ({}) => {
     const order = {
       ingredients,
       price,
-      user: {
-        id: 1,
-      },
+      user: auth.user,
       contactData,
       createdAt: Date.now(),
     };
     const toastId = toast.loading('Sending order data');
     try {
-      const res = await fetch(`${BASE_URL}/${API_URL.orders}`, {
-        method: 'POST',
-        body: JSON.stringify(order),
-      });
+      const res = await fetch(
+        `${BASE_URL}/users/${auth.user.id}/${API_URL.orders}?auth=${auth.idToken}`,
+        {
+          method: 'POST',
+          body: JSON.stringify(order),
+        },
+      );
       if (res.status !== 200) {
         throw new Error();
       }
@@ -59,10 +62,15 @@ const CheckoutContainer = ({}) => {
       }, 2000);
     }
   };
+  const { isAuth } = useAuth();
   return (
     <>
       <Container>
-        <CheckoutSummary ingredients={ingredients} price={price} />
+        <CheckoutSummary
+          isAuth={isAuth}
+          ingredients={ingredients}
+          price={price}
+        />
       </Container>
       <Outlet context={{ confirmOrder }} />
     </>

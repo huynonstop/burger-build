@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  defaultAuthStoreData,
+  getAuthStoreData,
+} from '../utils/localStorage';
 
 const initialState = {
   user: null,
+  idToken: null,
 };
 
 const reducers = {
@@ -9,14 +14,23 @@ const reducers = {
     const { user } = payload;
     state.user = user;
   },
+  setToken: (state, { payload }) => {
+    const { idToken } = payload;
+    state.idToken = idToken;
+  },
+  login: (state, { payload }) => {
+    const { user, idToken } = payload;
+    state.user = user;
+    state.idToken = idToken;
+  },
   logout: () => {
-    return initialState;
+    return defaultAuthStoreData;
   },
 };
 
 const authSlice = createSlice({
-  name: 'price',
-  initialState,
+  name: 'auth',
+  initialState: getAuthStoreData(),
   reducers,
 });
 
