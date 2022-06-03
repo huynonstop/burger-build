@@ -1,0 +1,64 @@
+.ControlsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  box-shadow: 4px 2px 15px 5px #ccc;
+  width: max(50%, 300px);
+  margin-inline: auto;
+  padding: 2rem;
+  gap: 1rem;
+  align-self: flex-start;
+}
+
+.ControlsGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Control {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.Control .Count {
+  padding-inline: 10px;
+  min-width: 40px;
+}
+
+.Control button {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: inline-block;
+  padding: 0.25rem;
+  width: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #d39952;
+  color: #d39952;
+  background-color: #fff;
+}
+
+.Control button:disabled,
+.Control button:hover:disabled {
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.Control .Less:hover,
+.Control .Less:active,
+.Control .More:hover,
+.Control .More:active {
+  background-color: #daa972;
+  color: white;
+}
+
+.Label {
+  padding: 5px;
+  width: 60px;
+}

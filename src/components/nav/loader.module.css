@@ -1,0 +1,77 @@
+.LoaderWarper {
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  transition: opacity 0.4s ease;
+  width: 6rem;
+  height: 6rem;
+  align-self: center;
+}
+
+.Loader {
+  display: block;
+  position: relative;
+  width: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.Loader::before,
+.Loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  width: 3vmin;
+  height: 3vmin;
+  background-color: #d399529d;
+}
+
+.Loader::before {
+  top: calc(50% - 3vmin);
+  left: calc(50% - 3vmin);
+  animation: loader-2 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+.Loader::after {
+  top: 50%;
+  left: 50%;
+  animation: loader-1 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+@keyframes loader-1 {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  25% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+
+  75% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes loader-2 {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  25% {
+    transform: translateX(100%);
+  }
+
+  50% {
+    transform: translateX(100%) translateY(100%);
+  }
+
+  75% {
+    transform: translateY(100%);
+  }
+}

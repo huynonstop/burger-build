@@ -1,0 +1,61 @@
+.SideDraw {
+  position: fixed;
+  width: max(50%, 200px);
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 500;
+  background-color: #fff;
+  transition: all 0.3s ease-in;
+
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 500px) {
+  .SideDraw {
+    display: none;
+  }
+}
+
+.Open {
+  transform: translateX(0);
+}
+
+.Close {
+  transform: translateX(100%);
+  visibility: hidden;
+}
+
+.Logo {
+  max-height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.SideDrawCloseButton {
+  border-radius: 50%;
+  position: fixed;
+  z-index: 500;
+  outline: none;
+  border: none;
+  background-color: #e5e4e464;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  cursor: pointer;
+  top: 0;
+  right: max(50%, 200px);
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in;
+}
+.SideDrawCloseButton::after {
+  content: '\00d7';
+  font-size: 1.5rem;
+}

@@ -1,0 +1,15 @@
+.Logo {
+  padding: 0.25rem;
+  height: calc(80% - 0.125rem);
+  width: fit-content;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.Logo.Mini {
+  height: 40px;
+}
+
+.Logo img {
+  height: 100%;
+}
