@@ -2,7 +2,8 @@
 
 Make a burger by clicking
 
-Demo : https://udemy-burger-75d1f.firebaseapp.com/
+Demo firebase hosting: https://udemy-burger-75d1f.web.app/
+Demo netlify hosting: https://buildburger-huynonstop.netlify.app/
 
 ## Tech-stack
 
