@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:firebase": "firebase deploy",
+    "deploy:netlify": "ntl deploy"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
