@@ -12,6 +12,10 @@ import {
   removeIngredients,
   resetIngredients,
 } from '../features/actions';
+import {
+  ingredientsActions,
+  ingredientsReducer,
+} from '../features/ingredients';
 
 const BurgerContainer = () => {
   const price = useSelector((store) => store.price);
@@ -22,15 +26,22 @@ const BurgerContainer = () => {
     dispatch(addIngredients({ type }));
   };
 
-  const removeIngredient = (type) => {
-    if (ingredients[type] === 0) {
-      return;
-    }
-    dispatch(removeIngredients({ type }));
+  const removeIngredient = (ingredient) => {
+    dispatch(removeIngredients(ingredient));
   };
 
   const resetIngredient = () => {
     dispatch(resetIngredients());
+  };
+
+  const moveIngredientUp = (index) => {
+    console.log(index);
+    dispatch(ingredientsActions.moveUp({ index }));
+  };
+
+  const moveIngredientDown = (index) => {
+    console.log(index);
+    dispatch(ingredientsActions.moveDown({ index }));
   };
 
   const [showSummary, setShowSummary] = useState(false);
@@ -67,7 +78,14 @@ const BurgerContainer = () => {
         price={price}
         showSummaryModal={() => setSummary(true)}
       />
-      <Burger ingredients={ingredients} remove={removeIngredient} />
+      <Burger
+        clickAble={true}
+        moveAble={true}
+        moveUp={moveIngredientUp}
+        moveDown={moveIngredientDown}
+        ingredients={ingredients}
+        remove={removeIngredient}
+      />
     </Container>
   );
 };

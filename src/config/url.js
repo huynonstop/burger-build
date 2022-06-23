@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://udemy-burger-75d1f.firebaseio.com';
+export const BASE_URL =
+  'https://udemy-burger-75d1f.firebaseio.com/v2';
 const API_KEY = 'AIzaSyAYnIufml7g4MTlgwR4ZCZb5ToLUcpUSzQ';
 export const API_URL = {
   orders: 'orders.json',

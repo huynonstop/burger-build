@@ -37,11 +37,6 @@ const OrderDetailContainer = () => {
       )}
       {order && (
         <>
-          <Container>
-            <Link className="red-link" to="/orders">
-              Back to orders
-            </Link>
-          </Container>
           <Container className="justify-evenly flex-warp">
             <ContactInfo {...order.contactData} />
             <BurgerInfo
@@ -73,6 +68,11 @@ const OrderDetailContainer = () => {
               className="max-w-200px"
               content={`${document.location.href}`}
             />
+          </Container>
+          <Container>
+            <Link className="red-link" to="/orders">
+              Back to orders
+            </Link>
           </Container>
         </>
       )}

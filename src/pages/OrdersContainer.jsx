@@ -22,17 +22,19 @@ const OrdersContainer = () => {
     <Container column className="w-50">
       {loading && <Loader />}
       {orders.length
-        ? orders.map(([id, { ingredients, price, createdAt }]) => {
-            return (
-              <OrderCard
-                key={id}
-                orderId={id}
-                ingredients={ingredients}
-                createdAt={createdAt}
-                price={price}
-              />
-            );
-          })
+        ? orders.map(
+            ([id, { ingredientsCount, price, createdAt }]) => {
+              return (
+                <OrderCard
+                  key={id}
+                  orderId={id}
+                  ingredientsCount={ingredientsCount}
+                  createdAt={createdAt}
+                  price={price}
+                />
+              );
+            },
+          )
         : !loading && (
             <Flex tag="p" className="justify-center">
               <strong>Nothing in your eyes</strong>

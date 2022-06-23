@@ -1,29 +1,54 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { defaultIngredientsStoreData } from '../utils/localStorage';
+import {
+  defaultIngredientsStoreData,
+  getIngredientsStoreData,
+} from '../utils/localStorage';
 import {
   addIngredients,
   removeIngredients,
   resetIngredients,
 } from './actions';
-import { localIngredients } from './localStorageData';
 
 const reducers = {
   add(state, { payload }) {
     const { type } = payload;
-    state[type] += 1;
+    const id = `${Date.now().toString()}-${state.length}`;
+    state.push({ id, type });
   },
   remove(state, { payload }) {
-    const { type } = payload;
-    state[type] -= 1;
+    const { id } = payload;
+    return state.filter((ingredient) => ingredient.id !== id);
+  },
+  moveDown(state, { payload }) {
+    const { index } = payload;
+    const n = state.length;
+    if (index === n - 1) {
+      return state;
+    }
+
+    const t = state[index];
+    state[index] = state[index + 1];
+    state[index + 1] = t;
+  },
+  moveUp(state, { payload }) {
+    const { index } = payload;
+    const n = state.length;
+    if (index === 0) {
+      return state;
+    }
+
+    const t = state[index];
+    state[index] = state[index - 1];
+    state[index - 1] = t;
   },
   reset() {
-    return { ...defaultIngredientsStoreData.ingredients };
+    return defaultIngredientsStoreData;
   },
 };
 
 const ingredientsSlice = createSlice({
   name: ' ingredients',
-  initialState: localIngredients,
+  initialState: getIngredientsStoreData(),
   reducers,
   extraReducers: (builder) => {
     builder

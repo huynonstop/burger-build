@@ -13,6 +13,32 @@
   transition: width 0.3s ease-in-out;
 }
 
+.ToppingWarper {
+  position: relative;
+}
+
+.ToppingWarper .IngredientMoveControl {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  transform: translateY(-50%);
+}
+
+.ToppingWarper:hover .IngredientMoveControl {
+  display: flex;
+}
+
+.IngredientMoveButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 1.5rem;
+}
+
 @media (min-width: 400px) {
   .Burger {
     width: 350px;
@@ -27,6 +53,6 @@
 
 @media (min-width: 1000px) {
   .Burger {
-    width: 600px;
+    width: 800px;
   }
 }

@@ -1,0 +1,14 @@
+.Arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.Up {
+  transform: rotate(-135deg);
+}
+
+.Down {
+  transform: rotate(45deg);
+}

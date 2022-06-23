@@ -4,6 +4,7 @@ import {
   setAuthStoreData,
   setExpiresTime,
   setIngredientsStoreData,
+  setPriceStoreData,
 } from '../utils/localStorage';
 import {
   addIngredients,
@@ -11,6 +12,7 @@ import {
   resetIngredients,
 } from './actions';
 import { authActions } from './auth';
+import { ingredientsActions } from './ingredients';
 
 export const ingredientsLocalSync = createListenerMiddleware();
 
@@ -19,11 +21,14 @@ ingredientsLocalSync.startListening({
     addIngredients,
     removeIngredients,
     resetIngredients,
+    ingredientsActions.moveUp,
+    ingredientsActions.moveDown,
   ),
   effect: (action, listenerApi) => {
     const { ingredients, price } = listenerApi.getState();
     // debounce
-    setIngredientsStoreData({ ingredients, price });
+    setIngredientsStoreData(ingredients);
+    setPriceStoreData(price);
   },
 });
 

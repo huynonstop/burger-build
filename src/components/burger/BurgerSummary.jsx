@@ -3,7 +3,13 @@ import Button from '../common/Button';
 import Flex from '../common/Flex';
 
 const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
-  const types = Object.keys(ingredients);
+  const summary = ingredients.reduce((pre, ingredient) => {
+    const preCount = pre[ingredient.type] || 0;
+    pre[ingredient.type] = preCount + 1;
+    return pre;
+  }, {});
+
+  const types = Object.keys(summary);
   return (
     <Flex column className="gap-1-2">
       <h3>Confirm your burger</h3>
@@ -12,7 +18,7 @@ const BurgerSummary = ({ ingredients, cancel, confirm, price }) => {
         {types.map((type) => {
           return (
             <li key={type}>
-              <span>{LABEL[type]}</span>:{ingredients[type]}
+              <span>{LABEL[type]}</span>: {summary[type]}
             </li>
           );
         })}

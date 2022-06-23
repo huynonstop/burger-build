@@ -7,14 +7,16 @@ const ControlsGroup = ({
   showSummaryModal,
   price,
   add,
-  remove,
   ingredients,
   reset,
 }) => {
-  const ingredientsList = Object.keys(ingredients);
-  const totalCount = ingredientsList.reduce((pre, type) => {
-    return pre + ingredients[type];
-  }, 0);
+  const ingredientsList = Object.keys(LABEL);
+  const totalCount = ingredients.length;
+  const ingredientsCount = ingredients.reduce((pre, ingredient) => {
+    const preCount = pre[ingredient.type] || 0;
+    pre[ingredient.type] = preCount + 1;
+    return pre;
+  }, {});
   return (
     <div className={classes.ControlsContainer}>
       <h3 className="font-5-4">
@@ -24,7 +26,7 @@ const ControlsGroup = ({
         {ingredientsList.map((type) => (
           <IngredientControl
             key={type}
-            count={ingredients[type]}
+            count={ingredientsCount[type] || 0}
             add={() => add(type)}
             remove={() => remove(type)}
             label={LABEL[type]}

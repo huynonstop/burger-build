@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TYPES } from '../config/naming';
-import { defaultIngredientsStoreData } from '../utils/localStorage';
+import {
+  defaultPriceStoreData,
+  getPriceStoreData,
+} from '../utils/localStorage';
 import {
   addIngredients,
   removeIngredients,
   resetIngredients,
 } from './actions';
-import { localPrice } from './localStorageData';
 
 const PRICE = {
   [TYPES.meat]: 2,
@@ -25,13 +27,13 @@ const reducers = {
     return state - PRICE[type];
   },
   reset() {
-    return defaultIngredientsStoreData.price;
+    return defaultPriceStoreData;
   },
 };
 
 const priceSlice = createSlice({
   name: 'price',
-  initialState: localPrice,
+  initialState: getPriceStoreData(),
   reducers,
   extraReducers: (builder) => {
     builder

@@ -18,8 +18,14 @@ const CheckoutContainer = ({}) => {
   };
   const navigate = useNavigate();
   const confirmOrder = async (contactData) => {
+    const ingredientsCount = ingredients.reduce((pre, ingredient) => {
+      const preCount = pre[ingredient.type] || 0;
+      pre[ingredient.type] = preCount + 1;
+      return pre;
+    }, {});
     const order = {
       ingredients,
+      ingredientsCount,
       price,
       user: auth.user,
       contactData,

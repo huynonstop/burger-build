@@ -89,7 +89,7 @@
   background: linear-gradient(#7f3608, #702e05);
   margin: 0 auto;
   border-radius: 15px;
-  min-height: 32px;
+  min-height: 2rem;
 }
 
 .Cheese {
@@ -98,7 +98,7 @@
   margin: 0 auto;
   background: linear-gradient(#f4d004, #d6bb22);
   border-radius: 20px;
-  min-height: 18px;
+  min-height: 1.5rem;
 }
 
 .Salad {
@@ -107,18 +107,18 @@
   margin: 0 auto;
   background: linear-gradient(#228c1d, #91ce50);
   border-radius: 20px;
-  min-height: 28px;
+  min-height: 2rem;
 }
 
 .Bacon {
   width: 80%;
-  height: 3%;
+  height: 5%;
   background: linear-gradient(#bf3813, #c45e38);
   margin: 0 auto;
-  min-height: 12px;
+  min-height: 1rem;
 }
 
-.Topping {
+.ToppingAnimate {
   animation: add-in 0.3s ease-in;
 }
 
@@ -129,4 +129,13 @@
   to {
     transform: translateX(0px);
   }
+}
+
+.ClickAble {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.ClickAble:hover {
+  opacity: 0.7;
 }

@@ -4,10 +4,15 @@ import QRImage from '../common/QRImage';
 import classes from './order.module.css';
 import { Link } from 'react-router-dom';
 
-const OrderCard = ({ orderId, ingredients, createdAt, price }) => {
-  const ingredientsString = Object.keys(ingredients)
+const OrderCard = ({
+  ingredientsCount,
+  orderId,
+  createdAt,
+  price,
+}) => {
+  const ingredientsString = Object.keys(ingredientsCount)
     .map((type) => {
-      return `${ingredients[type]} ${LABEL[type]}`;
+      return `${ingredientsCount[type]} ${LABEL[type]}`;
     })
     .join(', ');
   const createdDate = new Date(createdAt);

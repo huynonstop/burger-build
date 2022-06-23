@@ -7,9 +7,17 @@ import IngredientInfo from './IngredientInfo';
 const BurgerInfo = ({
   price,
   ingredients,
+  ingredientsCount,
   ingredientsGroupClass = 'items-center',
 }) => {
-  const ingredientsList = Object.keys(ingredients);
+  const ingredientsList = Object.keys(LABEL);
+  const count =
+    ingredientsCount ||
+    ingredients.reduce((pre, ingredient) => {
+      const preCount = pre[ingredient.type] || 0;
+      pre[ingredient.type] = preCount + 1;
+      return pre;
+    }, {});
   return (
     <Flex column className="gap-1">
       <div
@@ -21,7 +29,7 @@ const BurgerInfo = ({
         {ingredientsList.map((type) => (
           <IngredientInfo
             key={type}
-            count={ingredients[type]}
+            count={count[type]}
             label={LABEL[type]}
           />
         ))}
