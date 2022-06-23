@@ -41,7 +41,7 @@ const OrderDetailContainer = () => {
             <ContactInfo {...order.contactData} />
             <BurgerInfo
               ingredientsGroupClass="items-start"
-              ingredients={order.ingredients}
+              ingredientsCount={order.ingredientsCount}
               price={order.price}
             />
           </Container>
